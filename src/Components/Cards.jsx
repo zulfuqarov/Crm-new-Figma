@@ -7,12 +7,14 @@ const Cards = ({ Stage, Leads, isStageragging }) => {
   return (
     <div>
       <StageCard Stage={Stage} />
-      <Droppable droppableId={`lead-${Stage.id}`} direction="vertical">
-        {(provided) => (
+      <Droppable droppableId={`lead-${Stage.id}`} direction="vertical" >
+        {(provided, snapshot) => (
           <div
             ref={provided.innerRef}
             {...(isStageragging ? {} : provided.droppableProps)}
-            className="flex flex-col"
+            className={`w-full min-h-[100px] bg-blue-300 transition-colors duration-200 ${
+              snapshot.isDraggingOver && !isStageragging ? "bg-gray-200" : ""
+            }`}
           >
             {Leads &&
               Leads.filter((oneFilter) => oneFilter.stage_Id === Stage.id).map(

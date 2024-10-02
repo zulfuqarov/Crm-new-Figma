@@ -2,7 +2,7 @@ import React from "react";
 
 const List = () => {
   return (
-    <div className="frame flex w-[100%] items-center justify-between px-10 py-10 bg-gray-100">
+    <div className="frame flex w-[100%] items-center justify-between px-10 py-10 bg-white">
       <div className="div-wrapper flex w-[168px] gap-2 items-center relative">
         <div className="text-wrapper relative w-fit -mt-1 font-medium text-[32px] text-main-text-color leading-normal">
           Pipeline

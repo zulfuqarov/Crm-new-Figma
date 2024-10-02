@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import React from "react";
 import { ContextCrm } from "../context/Context";
+import AddLeads from "./AddLeads";
 
 const StageCard = ({ Stage }) => {
   const { handleEditStage, handleDeleteStage } = useContext(ContextCrm);
@@ -24,6 +25,11 @@ const StageCard = ({ Stage }) => {
     });
   };
 
+  const [showAddLeads, setshowAddLeads] = useState(false);
+  const toggleAddLeads = () => {
+    setshowAddLeads(!showAddLeads);
+  };
+
   return (
     <div className="flex flex-col w-[376px] items-start gap-4 py-4 relative group">
       <div className="flex items-center justify-between w-full relative ">
@@ -40,7 +46,6 @@ const StageCard = ({ Stage }) => {
             {Stage.name}
           </div>
         )}
-
         <div className="inline-flex items-center justify-center gap-2 relative">
           {ShowChangeCategroy ? (
             <div>
@@ -98,7 +103,10 @@ const StageCard = ({ Stage }) => {
               </button>
             </div>
           )}
-          <button className="inline-flex items-center gap-2.5 relative">
+          <button
+            onClick={toggleAddLeads}
+            className="inline-flex items-center gap-2.5 relative"
+          >
             <i className="fa-solid fa-plus"></i>
           </button>
         </div>
@@ -115,6 +123,8 @@ const StageCard = ({ Stage }) => {
           {`$${Stage.total_Revenue}`}
         </div>
       </div>
+      {showAddLeads && <AddLeads StageId={Stage.id} />}
+
     </div>
   );
 };

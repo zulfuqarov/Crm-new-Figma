@@ -102,13 +102,28 @@ const Context = ({ children }) => {
     }
   };
 
+  const [newLeads, setnewLeads] = useState();
+  const handleAddLeads = async (lead, stageId, userId) => {
+    try {
+      const response = await axios.post(`${apiUrl}/api/Leads`, {
+        ...lead,
+        stageId: stageId,
+        userId: userId,
+      });
+      setnewLeads(response.data);
+      toast.success("Lead added successfully!");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     getStage();
   }, [addStage, editStage, deleteStage]);
 
   useEffect(() => {
     getLeads();
-  }, []);
+  }, [newLeads]);
 
   return (
     <ContextCrm.Provider
@@ -119,6 +134,7 @@ const Context = ({ children }) => {
         handleEditStage,
         handleDeleteStage,
         leads,
+        handleAddLeads
       }}
     >
       {children}

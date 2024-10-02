@@ -31,21 +31,22 @@ const Pipeline = () => {
   const handleOnDragEnd = (result) => {
     setIsLeadDragging(false);
     setisStageragging(false);
-  
+
     const { destination, source } = result;
-  
+
     if (!destination) return;
-  
-    // Eğer stages alanı içerisindeyse (stage'ler arası sürükleme)
-    if (source.droppableId === "stages" && destination.droppableId === "stages") {
+
+    if (
+      source.droppableId === "stages" &&
+      destination.droppableId === "stages"
+    ) {
       const newStage = [...stage];
       const [reorderedStage] = newStage.splice(source.index, 1);
       newStage.splice(destination.index, 0, reorderedStage);
       setstage(newStage);
       console.log("ok");
     }
-  
-    // Eğer lead'ler arasında bir değişiklik olduysa
+
     if (
       source.droppableId.startsWith("lead-") &&
       destination.droppableId.startsWith("lead-")
@@ -53,7 +54,6 @@ const Pipeline = () => {
       console.log("deyisdi");
     }
   };
-  
 
   return (
     <section>
@@ -94,7 +94,7 @@ const Pipeline = () => {
                       )}
                     </Draggable>
                   ))}
-                {provided.placeholder}
+                {isStageragging ? provided.placeholder : ""}
               </div>
             )}
           </Droppable>
