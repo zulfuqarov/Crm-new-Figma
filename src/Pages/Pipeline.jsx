@@ -1,107 +1,121 @@
-import React, { useContext, useEffect, useState } from "react";
-import List from "../Components/List";
-import AddStage from "../Components/AddStage";
-import Cards from "../Components/Cards";
-import { ContextCrm } from "../context/Context";
+import React, { useContext, useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import StageCard from "../Components/StageCard";
+import { ContextCrm } from "../context/Context";
+import LeadsCard from "../Components/LeadsCard";
+import { Link } from "react-router-dom";
+import AddStage from "../Components/AddStage";
 
 const Pipeline = () => {
   const { stage, setstage, leads } = useContext(ContextCrm);
 
-  // const [StageState, setStageState] = useState([]);
-  // const [LeadsState, setLeadsState] = useState([]);
-
-  const [isLeadDragging, setIsLeadDragging] = useState(false);
-  const [isStageragging, setisStageragging] = useState(false);
-
-  useEffect(() => {
-    // setStageState(stage);
-    // setLeadsState(leads);
-  }, []);
-
-  const handleOnDragStart = (start) => {
-    if (start.source.droppableId.startsWith("lead-")) {
-      setIsLeadDragging(true);
-    }
-    if (start.source.droppableId.startsWith("stages")) {
-      setisStageragging(true);
-    }
-  };
-
-  const handleOnDragEnd = (result) => {
-    setIsLeadDragging(false);
-    setisStageragging(false);
-
-    const { destination, source } = result;
+  const onDragEnd = (result) => {
+    const { source, destination, type } = result;
 
     if (!destination) return;
 
-    if (
-      source.droppableId === "stages" &&
-      destination.droppableId === "stages"
-    ) {
+    if (type === "category") {
       const newStage = [...stage];
       const [reorderedStage] = newStage.splice(source.index, 1);
       newStage.splice(destination.index, 0, reorderedStage);
       setstage(newStage);
       console.log("ok");
-    }
-
-    if (
-      source.droppableId.startsWith("lead-") &&
-      destination.droppableId.startsWith("lead-")
-    ) {
-      console.log("deyisdi");
+      return;
     }
   };
 
   return (
-    <section>
-      <List />
-      <div className="flex">
-        <DragDropContext
-          onDragStart={handleOnDragStart}
-          onDragEnd={handleOnDragEnd}
-        >
-          <Droppable droppableId="stages" direction="horizontal">
-            {(provided) => (
-              <div
-                className="flex  px-[20px]"
-                {...(isLeadDragging ? {} : provided.droppableProps)}
-                ref={provided.innerRef}
+    <DragDropContext onDragEnd={onDragEnd}>
+      <Droppable
+        droppableId="categories"
+        type="category"
+        direction="horizontal"
+      >
+        {(provided, snapshot) => (
+          <div
+            className={`w-full flex   transition-colors duration-200 ${
+              snapshot.isDraggingOver
+                ? "bg-gray-100 border-2 border-dashed border-gray-200"
+                : ""
+            }`}
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+          >
+            {stage.map((Onestage, index) => (
+              <Draggable
+                key={Onestage.id}
+                draggableId={Onestage.id.toString()}
+                index={index}
               >
-                {stage &&
-                  stage.map((OneMap, index) => (
-                    <Draggable
-                      key={OneMap.id}
-                      draggableId={`stages-${OneMap.id}`}
-                      index={index}
-                      isDragDisabled={isLeadDragging}
+                {(provided) => (
+                  <div
+                    className="w-full px-[8px] bg-white"
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                    style={{
+                      ...provided.draggableProps.style,
+                    }}
+                  >
+                    <StageCard Stage={Onestage} />
+                    <Droppable
+                      droppableId={Onestage.id.toString()}
+                      type="product"
                     >
-                      {(provided) => (
+                      {(provided, snapshot) => (
                         <div
+                          className={`w-full   transition-colors duration-200 ${
+                            snapshot.isDraggingOver
+                              ? "bg-gray-100 border-2 border-dashed border-gray-200"
+                              : ""
+                          }`}
                           ref={provided.innerRef}
-                          {...(isLeadDragging ? {} : provided.draggableProps)}
-                          {...(isLeadDragging ? {} : provided.dragHandleProps)}
-                          className="bg-white px-[12px]"
+                          {...provided.droppableProps}
+                          style={{
+                            minHeight: "150px",
+                          }}
                         >
-                          <Cards
-                            Stage={OneMap}
-                            Leads={leads}
-                            isStageragging={isStageragging}
-                          />
+                          {leads &&
+                            leads
+                              .filter(
+                                (oneLeads) => oneLeads.stage_Id === Onestage.id
+                              )
+                              .map((OneMap, indexs) => (
+                                <Draggable
+                                  key={OneMap.id}
+                                  draggableId={OneMap.id.toString() + 1}
+                                  index={OneMap.id}
+                                >
+                                  {(provided) => (
+                                    <Link
+                                      to={`/Leads/${OneMap.id}`}
+                                      className="mb-[10px] inline-block w-full !cursor-pointer"
+                                      ref={provided.innerRef}
+                                      {...provided.draggableProps}
+                                      {...provided.dragHandleProps}
+                                      style={{
+                                        ...provided.draggableProps.style,
+                                      }}
+                                    >
+                                      <LeadsCard Leads={OneMap} />
+                                    </Link>
+                                  )}
+                                </Draggable>
+                              ))}
+                          {provided.placeholder}
                         </div>
                       )}
-                    </Draggable>
-                  ))}
-                {isStageragging ? provided.placeholder : ""}
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
-        <AddStage />
-      </div>
-    </section>
+                    </Droppable>
+                  </div>
+                )}
+              </Draggable>
+            ))}
+            {provided.placeholder}
+            <AddStage />
+          </div>
+        )}
+      </Droppable>
+    </DragDropContext>
   );
 };
 

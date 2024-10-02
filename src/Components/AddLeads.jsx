@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { ContextCrm } from "../context/Context";
+import { toast } from "react-toastify";
 
 const AddLeads = ({ StageId }) => {
   const { handleAddLeads } = useContext(ContextCrm);
@@ -9,11 +10,8 @@ const AddLeads = ({ StageId }) => {
     setnewLeads({ ...newLeads, [e.target.name]: e.target.value });
   };
 
-  // stageId: StageId,
-  //   userId: 1,
-
   return (
-    <div className="flex flex-col w-full  items-start gap-8 p-6 bg-white rounded border border-gray-300 shadow-sm top-[99px] right-0 absolute">
+    <div className="flex flex-col w-full   items-start gap-8 p-6 bg-white rounded border border-gray-300 shadow-sm top-[99px] right-0 absolute">
       <div className="flex flex-col w-full items-start gap-6">
         <div className="flex flex-col w-[100%] items-start justify-center gap-2">
           <p className="w-full text-[16px]  font-medium text-main-text-color">
@@ -97,8 +95,19 @@ const AddLeads = ({ StageId }) => {
         </button>
         <button
           onClick={() => {
-            handleAddLeads(newLeads, StageId, 1);
-            setnewLeads({});
+            if (
+              newLeads.fullName &&
+              newLeads.product &&
+              newLeads.expectedClosingDate &&
+              newLeads.probability &&
+              newLeads.expectedRevenue
+            ) {
+              handleAddLeads(newLeads, StageId, 1);
+              setnewLeads({});
+            } else {
+              toast.error("Please fill all the fields!");
+              return;
+            }
           }}
           className="flex h-[44px] items-center justify-center gap-3 px-3 bg-blue-500 border border-blue-500 rounded cursor-pointer hover:bg-blue-600 transition"
         >

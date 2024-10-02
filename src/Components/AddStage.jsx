@@ -18,7 +18,7 @@ const AddStage = () => {
   };
 
   return (
-    <div className="relative w-full max-w-sm mx-auto pt-4">
+    <div className="relative w-full max-w-sm mx-auto pt-4 pl-[20px]">
       {show ? (
         <div className="p-4 bg-white shadow-lg w-[300px] rounded-lg transition-all">
           <input

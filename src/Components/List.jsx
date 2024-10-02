@@ -19,23 +19,23 @@ const List = () => {
         <div className="div-2 inline-flex gap-2 flex-none items-center relative">
           <button className="div-3 inline-flex h-[44px] justify-center gap-2 px-[12px] flex-none bg-gray-200 border border-gray-300 rounded-[4px] items-center relative">
             <i className="fa-solid fa-bars-staggered" />
-            <div className="text-wrapper-3 relative w-fit font-normal text-main-text-color text-[16px] leading-normal whitespace-nowrap">
+            <p className="text-wrapper-3 relative w-fit font-normal text-main-text-color text-[16px] leading-normal whitespace-nowrap">
               List
-            </div>
+            </p>
           </button>
           <button className="div-4 inline-flex h-[44px] justify-center gap-2 px-[12px] flex-none bg-gray-200 border border-blue-600 rounded-[4px] items-center relative">
             <i className="fa-solid fa-grip"></i>
-            <div className="list relative w-fit font-normal text-blue-600 text-[16px] leading-normal whitespace-nowrap">
+            <p className="list relative w-fit font-normal text-blue-600 text-[16px] leading-normal whitespace-nowrap">
               Grid
-            </div>
+            </p>
           </button>
         </div>
-        <div className="div-5 inline-flex h-[44px] justify-center gap-3 px-[12px] flex-none bg-blue-600 rounded-[4px] items-center relative">
+        <button className="div-5 inline-flex h-[44px] justify-center gap-3 px-[12px] flex-none bg-blue-600 rounded-[4px] items-center relative">
           <i className="fa-solid fa-user text-white"></i>
-          <div className="new-contact relative w-fit font-normal text-white text-[16px] leading-normal whitespace-nowrap">
+          <p className="new-contact relative w-fit font-normal text-white text-[16px] leading-normal whitespace-nowrap">
             New Lead
-          </div>
-        </div>
+          </p>
+        </button>
       </div>
     </div>
   );
