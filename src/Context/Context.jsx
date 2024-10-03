@@ -82,7 +82,7 @@ const Context = ({ children }) => {
   const handleDeleteStage = async (id) => {
     try {
       const response = await axios.delete(`${apiUrl}/api/Stages/${id}`);
-      setdeleteStage(response.data);
+      setdeleteStage(id);
       toast.success("Stage deleted successfully!");
     } catch (error) {
       console.log(error);
@@ -101,7 +101,6 @@ const Context = ({ children }) => {
       console.log(error);
     }
   };
-
   const [newLeads, setnewLeads] = useState();
   const handleAddLeads = async (lead, stageId, userId) => {
     try {
@@ -116,6 +115,19 @@ const Context = ({ children }) => {
       console.log(error);
     }
   };
+  const [changeLeadsStage, setchangeLeadsStage] = useState();
+  const handleChangeLeadsStage = async (leadId, newStageId) => {
+    try {
+      const response = await axios.put(
+        `${apiUrl}/api/Leads/?leadId=${leadId}&stageId=${newStageId}`
+      );
+      setchangeLeadsStage(newStageId);
+      toast.success("Lead status updated successfully!");
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to update lead status!");
+    }
+  };
 
   useEffect(() => {
     getStage();
@@ -123,7 +135,7 @@ const Context = ({ children }) => {
 
   useEffect(() => {
     getLeads();
-  }, [newLeads]);
+  }, [newLeads, changeLeadsStage]);
 
   return (
     <ContextCrm.Provider
@@ -134,7 +146,9 @@ const Context = ({ children }) => {
         handleEditStage,
         handleDeleteStage,
         leads,
-        handleAddLeads
+        setleads,
+        handleAddLeads,
+        handleChangeLeadsStage,
       }}
     >
       {children}

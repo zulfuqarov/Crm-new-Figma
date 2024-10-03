@@ -13,7 +13,7 @@ const LeadsCard = ({ Leads }) => {
               Green Vision Studios
             </div>
           </div>
-          <div className="font-normal text-gray-500 text-base">$ 2,300.00</div>
+          <div className="font-normal text-gray-500 text-base">$ {Leads.expectedRevenue}</div>
           <button className="flex items-center justify-center gap-2 bg-yellow-500 rounded-full py-0.5 px-2 w-[150px]">
             <p className="text-white text-sm">Product</p>
           </button>
