@@ -96,11 +96,11 @@ const AddLeads = ({ StageId }) => {
         <button
           onClick={() => {
             if (
-              newLeads.fullName &&
-              newLeads.product &&
-              newLeads.expectedClosingDate &&
-              newLeads.probability &&
-              newLeads.expectedRevenue
+              newLeads.fullName.trim() &&
+              newLeads.product.trim() &&
+              newLeads.expectedClosingDate.trim() &&
+              newLeads.probability.trim() &&
+              newLeads.expectedRevenue.trim()
             ) {
               handleAddLeads(newLeads, StageId, 1);
               setnewLeads({});
