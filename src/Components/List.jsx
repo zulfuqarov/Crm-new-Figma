@@ -1,6 +1,6 @@
 import React from "react";
 
-const List = () => {
+const List = ({ showListLeads, toggleListAndGrid }) => {
   return (
     <div className="frame flex w-[100%] items-center justify-between px-10 py-10 bg-white">
       <div className="div-wrapper flex w-[168px] gap-2 items-center relative">
@@ -17,15 +17,35 @@ const List = () => {
           <i className="fa-solid fa-magnifying-glass absolute top-[50%] left-3 transform -translate-y-1/2 text-gray-500"></i>
         </div>
         <div className="div-2 inline-flex gap-2 flex-none items-center relative">
-          <button className="div-3 inline-flex h-[44px] justify-center gap-2 px-[12px] flex-none bg-gray-200 border border-gray-300 rounded-[4px] items-center relative">
+          <button
+            disabled={showListLeads ? true : false}
+            onClick={toggleListAndGrid}
+            className={`${
+              showListLeads ? "border-blue-600 " : ""
+            }div-3 inline-flex h-[44px] justify-center gap-2 px-[12px] flex-none bg-gray-200 border  rounded-[4px] items-center relative`}
+          >
             <i className="fa-solid fa-bars-staggered" />
-            <p className="text-wrapper-3 relative w-fit font-normal text-main-text-color text-[16px] leading-normal whitespace-nowrap">
+            <p
+              className={`text-wrapper-3 relative w-fit font-normal text-main-text-color text-[16px] leading-normal whitespace-nowrap ${
+                showListLeads ? "text-blue-600" : ""
+              }`}
+            >
               List
             </p>
           </button>
-          <button className="div-4 inline-flex h-[44px] justify-center gap-2 px-[12px] flex-none bg-gray-200 border border-blue-600 rounded-[4px] items-center relative">
+          <button
+            disabled={showListLeads ? false : true}
+            onClick={toggleListAndGrid}
+            className={`${
+              showListLeads ? "" : "border-blue-600 "
+            } div-4 inline-flex h-[44px] justify-center gap-2 px-[12px] flex-none bg-gray-200 border rounded-[4px] items-center relative`}
+          >
             <i className="fa-solid fa-grip"></i>
-            <p className="list relative w-fit font-normal text-blue-600 text-[16px] leading-normal whitespace-nowrap">
+            <p
+              className={`list relative w-fit font-normal  text-[16px] leading-normal whitespace-nowrap ${
+                showListLeads ? "" : "text-blue-600"
+              }`}
+            >
               Grid
             </p>
           </button>

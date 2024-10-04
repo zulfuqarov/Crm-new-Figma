@@ -70,7 +70,7 @@ const AddLeads = ({ StageId }) => {
             />
             <div className=" w-[52px] h-[25px] flex justify-center items-center rounded-[4px] border-[1px] border-blue-500">
               <span className="">
-                {newLeads.probability ? newLeads.probability : "0%"}
+                {newLeads.probability ? `%${newLeads.probability }`: "50%"}
               </span>
             </div>{" "}
           </div>

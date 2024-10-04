@@ -1,6 +1,6 @@
 import React from "react";
 
-const LeadsCard = ({ Leads }) => {
+const LeadsCard = ({ Leads, getRandomColor }) => {
   return (
     <div className="flex flex-col gap-3 p-4 bg-white border border-gray-300 rounded-md">
       <div className="flex w-86 gap-20">
@@ -13,8 +13,12 @@ const LeadsCard = ({ Leads }) => {
               Green Vision Studios
             </div>
           </div>
-          <div className="font-normal text-gray-500 text-base">$ {Leads.expectedRevenue}</div>
-          <button className="flex items-center justify-center gap-2 bg-yellow-500 rounded-full py-0.5 px-2 w-[150px]">
+          <div className="font-normal text-gray-500 text-base">
+            $ {Leads.expectedRevenue}
+          </div>
+          <button
+            className={`flex items-center justify-center gap-2 ${getRandomColor} rounded-full py-0.5 px-2 w-[150px]`}
+          >
             <p className="text-white text-sm">Product</p>
           </button>
         </div>
