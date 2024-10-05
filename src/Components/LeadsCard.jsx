@@ -1,6 +1,27 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
-const LeadsCard = ({ Leads, getRandomColor }) => {
+const LeadsCard = ({ Leads }) => {
+  const [leadColor, setLeadColor] = useState("");
+
+  const buttonColors = [
+    "bg-[#FFA61A]",
+    "bg-[#AF59F7]",
+    "bg-[#F76A8B]",
+    "bg-[#2B8547]",
+    "bg-[#6A8BF7]",
+  ];
+
+  const getRandomColor = () => {
+    return buttonColors[Math.floor(Math.random() * buttonColors.length)];
+  };
+
+  useEffect(() => {
+    if (!leadColor) {
+      const newColor = getRandomColor();
+      setLeadColor(newColor);
+    }
+  }, [leadColor]);
+
   return (
     <div className="flex flex-col gap-3 p-4 bg-white border border-gray-300 rounded-md">
       <div className="flex w-86 gap-20">
@@ -17,7 +38,7 @@ const LeadsCard = ({ Leads, getRandomColor }) => {
             $ {Leads.expectedRevenue}
           </div>
           <button
-            className={`flex items-center justify-center gap-2 ${getRandomColor} rounded-full py-0.5 px-2 w-[150px]`}
+            className={`flex items-center justify-center gap-2 ${leadColor} rounded-full py-0.5 px-2 w-[150px]`}
           >
             <p className="text-white text-sm">Product</p>
           </button>
@@ -28,8 +49,8 @@ const LeadsCard = ({ Leads, getRandomColor }) => {
           <div className="text-gray-500 text-base">Closing date:</div>
           <div className="text-gray-500 text-base">12/11/2024</div>
         </div>
-        <div className="w-7 h-7 bg-[#77919D] rounded-md overflow-hidden">
-          <div className="absolute top-1 left-2 font-medium text-white text-base">
+        <div className="w-7 h-7 flex justify-center items-center bg-[#77919D] rounded-md overflow-hidden">
+          <div className=" top-1 left-2 font-medium text-white text-base">
             J
           </div>
         </div>

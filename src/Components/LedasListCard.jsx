@@ -1,9 +1,29 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import NoteLogo from "../Assets/Img/NoteLogo.svg";
 import { Link } from "react-router-dom";
 
-const LedasListCard = ({ index, OneMap, getRandomColor }) => {
-   
+const LedasListCard = ({ index, OneMap }) => {
+  const [leadColor, setLeadColor] = useState("");
+
+  const buttonColors = [
+    "bg-[#FFA61A]",
+    "bg-[#AF59F7]",
+    "bg-[#F76A8B]",
+    "bg-[#2B8547]",
+    "bg-[#6A8BF7]",
+  ];
+
+  const getRandomColor = () => {
+    return buttonColors[Math.floor(Math.random() * buttonColors.length)];
+  };
+
+  useEffect(() => {
+    if (!leadColor) {
+      const newColor = getRandomColor();
+      setLeadColor(newColor);
+    }
+  }, [leadColor]);
+  
   return (
     <div
       key={index}
@@ -34,7 +54,7 @@ const LedasListCard = ({ index, OneMap, getRandomColor }) => {
       <div className="flex w-[307px] h-[52px] items-center gap-3 p-2 pl-5 ">
         <div className="flex items-center">
           <button
-            className={`flex items-center justify-center gap-2 ${getRandomColor} rounded-full py-0.5 px-2 w-[150px]`}
+            className={`flex items-center justify-center gap-2 ${leadColor} rounded-full py-0.5 px-2 w-[150px]`}
           >
             <p className="text-white text-sm">Product 12</p>
           </button>

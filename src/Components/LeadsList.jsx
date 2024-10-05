@@ -11,19 +11,6 @@ import { ContextCrm } from "../context/Context";
 const LeadsList = () => {
   const { leads } = useContext(ContextCrm);
 
-  const buttonColors = [
-    "bg-[#FFA61A]", 
-    "bg-[#AF59F7]", 
-    "bg-[#F76A8B]", 
-    "bg-[#2B8547]", 
-    "bg-[#6A8BF7]", 
-  ];
-
-  const getRandomColor = () => {
-    const randomIndex = Math.floor(Math.random() * buttonColors.length);
-    return buttonColors[randomIndex];
-  };
-
   return (
     <div>
       <div className="flex items-center relative border-b border-gray-300">
@@ -66,11 +53,7 @@ const LeadsList = () => {
       </div>
       <div>
         {leads.map((OneMap, index) => (
-          <LedasListCard
-            getRandomColor={getRandomColor()}
-            OneMap={OneMap}
-            index={index}
-          />
+          <LedasListCard OneMap={OneMap} index={index} />
         ))}
       </div>
     </div>

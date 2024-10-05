@@ -44,18 +44,6 @@ const Pipeline = () => {
     setshowListLeads(!showListLeads);
   };
 
-  const buttonColors = [
-    "bg-[#FFA61A]",
-    "bg-[#AF59F7]",
-    "bg-[#F76A8B]",
-    "bg-[#2B8547]",
-    "bg-[#6A8BF7]",
-  ];
-
-  const getRandomColor = () => {
-    return buttonColors[Math.floor(Math.random() * buttonColors.length)];
-  };
-
   if (showListLeads) {
     return (
       <div>
@@ -146,10 +134,7 @@ const Pipeline = () => {
                                             ...provided.draggableProps.style,
                                           }}
                                         >
-                                          <LeadsCard
-                                            getRandomColor={getRandomColor()}
-                                            Leads={OneMap}
-                                          />
+                                          <LeadsCard Leads={OneMap} />
                                         </Link>
                                       )}
                                     </Draggable>
