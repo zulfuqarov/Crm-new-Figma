@@ -23,7 +23,7 @@ const LedasListCard = ({ index, OneMap }) => {
       setLeadColor(newColor);
     }
   }, [leadColor]);
-  
+
   return (
     <div
       key={index}
@@ -38,7 +38,7 @@ const LedasListCard = ({ index, OneMap }) => {
         </Link>
         <div className="flex items-center gap-4 relative flex-shrink-0">
           <p className="relative w-fit mt-[-1px] font-normal text-gray-900 text-sm">
-            {OneMap.product}
+            {OneMap.customer.name} {OneMap.customer.surname}
           </p>
         </div>
       </div>
@@ -56,7 +56,9 @@ const LedasListCard = ({ index, OneMap }) => {
           <button
             className={`flex items-center justify-center gap-2 ${leadColor} rounded-full py-0.5 px-2 w-[150px]`}
           >
-            <p className="text-white text-sm">Product 12</p>
+            <p className="text-white text-sm">
+              {OneMap.product ? OneMap.product.name : "no Product"}
+            </p>
           </button>
         </div>
       </div>
@@ -64,7 +66,7 @@ const LedasListCard = ({ index, OneMap }) => {
       <div className="flex w-[307px] h-[52px] items-center gap-3 p-2 pl-5 ">
         <div className="flex items-center gap-4 relative flex-shrink-0">
           <p className="relative w-fit mt-[-1px] font-normal text-gray-900 text-sm">
-            $ {OneMap.expectedRevenue}
+            $ {OneMap.lead.expectedRevenue}
           </p>
         </div>
       </div>
@@ -72,18 +74,21 @@ const LedasListCard = ({ index, OneMap }) => {
       <div className="flex w-[306px] h-[52px] items-center gap-3 p-2 pl-5 ">
         <div className="flex items-center gap-4 relative flex-shrink-0">
           <p className="relative w-fit mt-[-1px] font-normal text-gray-900 text-sm">
-            10/02/2024
+            {OneMap.lead_Stag_History.expectedClosingDate.split("T")[0]}
           </p>
         </div>
       </div>
 
       <div className="flex w-[307px] h-[52px] items-center gap-3 p-2 pl-5 ">
         <div className="relative w-[28px] h-[28px] bg-[#77919d] rounded-full flex items-center justify-center">
-          <p className="relative w-fit text-white text-sm">J</p>
+          <p className="relative w-fit text-white text-sm">
+            {" "}
+            {OneMap.user.name[0]}
+          </p>
         </div>
         <div className="flex items-center gap-4 relative flex-shrink-0">
           <p className="relative w-fit mt-[-1px] font-normal text-gray-900 text-sm">
-            {OneMap.customerId}
+            {OneMap.user.name}
           </p>
         </div>
       </div>

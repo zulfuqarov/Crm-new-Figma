@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import React from "react";
 import { ContextCrm } from "../context/Context";
 import AddLeads from "./AddLeads";
@@ -29,6 +29,28 @@ const StageCard = ({ Stage }) => {
   const toggleAddLeads = () => {
     setshowAddLeads(!showAddLeads);
   };
+
+  const [revenue, setRevenue] = useState(Stage.total_Revenue);
+  const [colorClass, setColorClass] = useState("bg-blue-500");
+  const [blueWidth, setBlueWidth] = useState(0); 
+
+  useEffect(() => {
+   
+    const newRevenue = Stage.total_Revenue; 
+    setRevenue(newRevenue); 
+
+    const newWidth = Math.min(Math.max((newRevenue / 100) * 100, 0), 100); 
+    setBlueWidth(newWidth); 
+
+   
+    if (newWidth > 70) {
+      setColorClass("bg-green-500"); 
+    } else if (newWidth < 40) {
+      setColorClass("bg-red-500"); 
+    } else {
+      setColorClass("bg-blue-500"); 
+    }
+  }, [Stage.total_Revenue]);
 
   return (
     <div className="flex flex-col w-[376px] items-start gap-4 py-4 relative group">
@@ -112,19 +134,23 @@ const StageCard = ({ Stage }) => {
         </div>
       </div>
       <div className="flex items-center justify-between w-full relative">
-        <div className="w-40 h-3 bg-red-500 rounded-sm flex overflow-hidden">
-          <div className="bg-blue-500 h-full" style={{ width: `60%` }} />
+        <div className="w-40 h-3 bg-red-500 rounded-sm flex overflow-hidden transition-all">
           <div
-            className="bg-stone-200 h-full"
-            style={{ width: `${100 - 60}%` }}
+            className={`${colorClass} h-full transition-all`} 
+            style={{ width: `${blueWidth}%` }}
+          />
+          <div
+            className="bg-stone-200 h-full transition-all"
+            style={{ width: `${100 - blueWidth}%` }}
           />
         </div>
-        <div className="text-blue-500 text-base font-normal mt-[-1px] whitespace-nowrap">
-          {`$${Stage.total_Revenue}`}
+        <div
+          className={`text-base font-normal mt-[-1px] whitespace-nowrap text-transition`}
+        >
+          {`$${revenue}`}
         </div>
       </div>
       {showAddLeads && <AddLeads StageId={Stage.id} />}
-
     </div>
   );
 };

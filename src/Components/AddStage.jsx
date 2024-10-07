@@ -1,12 +1,13 @@
 import React, { useContext, useState } from "react";
 import { ContextCrm } from "../context/Context";
+import { toast } from "react-toastify";
 
 const AddStage = () => {
   const { handleAddStage } = useContext(ContextCrm);
   const [show, setShow] = useState(false);
   const [stageNameInput, setStageNameInput] = useState({
     name: "",
-    user: "Nebi",
+    userId: 99,
   });
 
   const handleToggle = () => {
@@ -34,10 +35,10 @@ const AddStage = () => {
                 handleAddStage(stageNameInput);
                 setStageNameInput({
                   name: "",
-                  user: "Nebi",
+                  userId: 99,
                 });
-              }else{
-                console.log("input bosdur!!!!")
+              } else {
+                toast.error("Failed to add stage!");
               }
             }}
             className="w-full mt-3 py-2 text-white bg-blue-500 rounded hover:bg-blue-600 transition-all flex items-center justify-center"

@@ -1,6 +1,9 @@
 import React from "react";
 
 const LeadsDetailsChane = () => {
+
+  
+
   return (
     <div className="flex items-center justify-between relative py-[20px]">
       <div className="flex items-center gap-2">

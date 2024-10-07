@@ -28,8 +28,11 @@ const Pipeline = () => {
 
     if (type === "Leads") {
       const newLeads = leads.map((oneMap) =>
-        oneMap.id === Number(draggableId)
-          ? { ...oneMap, stage_Id: Number(destination.droppableId) }
+        oneMap.lead.id === draggableId
+          ? {
+              ...oneMap,
+              lead: { ...oneMap.lead, stage_Id: destination.droppableId },
+            }
           : { ...oneMap }
       );
 
@@ -56,7 +59,7 @@ const Pipeline = () => {
     );
   } else {
     return (
-      <div>
+      <div className="w-full">
         <List
           toggleListAndGrid={toggleListAndGrid}
           showListLeads={showListLeads}
@@ -69,7 +72,7 @@ const Pipeline = () => {
           >
             {(provided, snapshot) => (
               <div
-                className={`w-full flex   transition-colors duration-200 ${
+                className={`w-[1880px] flex   transition-colors duration-200 ${
                   snapshot.isDraggingOver
                     ? "bg-gray-100 border-2 border-dashed border-gray-200"
                     : ""
@@ -80,7 +83,7 @@ const Pipeline = () => {
                 {stage.map((Onestage, index) => (
                   <Draggable
                     key={Onestage.id}
-                    draggableId={Onestage.id.toString()}
+                    draggableId={Onestage.id}
                     index={index}
                   >
                     {(provided) => (
@@ -94,10 +97,7 @@ const Pipeline = () => {
                         }}
                       >
                         <StageCard Stage={Onestage} />
-                        <Droppable
-                          droppableId={Onestage.id.toString()}
-                          type="Leads"
-                        >
+                        <Droppable droppableId={Onestage.id} type="Leads">
                           {(provided, snapshot) => (
                             <div
                               className={`w-full   transition-colors duration-200 ${
@@ -115,17 +115,17 @@ const Pipeline = () => {
                                 leads
                                   .filter(
                                     (oneLeads) =>
-                                      oneLeads.stage_Id === Onestage.id
+                                      oneLeads.lead.stage_Id === Onestage.id
                                   )
-                                  .map((OneMap, indexs) => (
+                                  .map((OneMap, index) => (
                                     <Draggable
-                                      key={OneMap.id}
-                                      draggableId={OneMap.id.toString()}
-                                      index={indexs}
+                                      key={OneMap.lead.id}
+                                      draggableId={OneMap.lead.id}
+                                      index={index}
                                     >
                                       {(provided) => (
                                         <Link
-                                          to={`/Leads/${OneMap.id}`}
+                                          to={`/Leads/${OneMap.lead.id}`}
                                           className="mb-[10px] inline-block w-full !cursor-pointer"
                                           ref={provided.innerRef}
                                           {...provided.draggableProps}

@@ -6,42 +6,6 @@ export const ContextCrm = createContext();
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const Context = ({ children }) => {
-  // const stage = ["New", "Qualified", "Proposition", "Won"];
-  // const leads = [
-  //   {
-  //     stage: "New",
-  //     name: "John Doe",
-  //   },
-  //   {
-  //     stage: "New",
-  //     name: "Nebi Zul",
-  //   },
-  //   {
-  //     stage: "Qualified",
-  //     name: "Zul Nebi",
-  //   },
-  //   {
-  //     stage: "Proposition",
-  //     name: "Adiran Jon",
-  //   },
-  //   {
-  //     stage: "Proposition",
-  //     name: "Mohammed Ali",
-  //   },
-  //   {
-  //     stage: "Proposition",
-  //     name: "Mahmoud Zaki",
-  //   },
-  //   {
-  //     stage: "Won",
-  //     name: "Abdelrahman El-Zahra",
-  //   },
-  //   {
-  //     stage: "Won",
-  //     name: "Mohammed Abdul-Aziz",
-  //   },
-  // ];
-
   // Stage start
   const [stage, setstage] = useState([]);
   const getStage = async () => {
@@ -119,19 +83,43 @@ const Context = ({ children }) => {
   const handleChangeLeadsStage = async (leadId, newStageId) => {
     try {
       const response = await axios.put(
-        `${apiUrl}/api/Leads/?leadId=${leadId}&stageId=${newStageId}`
+        `${apiUrl}/api/Leads/${leadId}?stageId=${newStageId}`
       );
-      setchangeLeadsStage(newStageId);
+      setchangeLeadsStage(response);
       toast.success("Lead status updated successfully!");
     } catch (error) {
       console.log(error);
       toast.error("Failed to update lead status!");
     }
   };
+  const [searchLeadsContact, setsearchLeadsContact] = useState([]);
+  const handleSearchLeadsContact = async (contact) => {
+    try {
+      const response = await axios.get(
+        `${apiUrl}/api/Leads/SearchCustomers/${contact}`
+      );
+      setsearchLeadsContact(response.data);
+    } catch (error) {
+      console.log(error);
+      setsearchLeadsContact([]);
+    }
+  };
+  const [searchLeadsProduct, setsearchLeadsProduct] = useState([]);
+  const handleSearchLeadsProduct = async (Product) => {
+    try {
+      const response = await axios.get(
+        `${apiUrl}/api/Leads/SearchProducts/${Product}`
+      );
+      setsearchLeadsProduct(response.data);
+    } catch (error) {
+      console.log(error);
+      setsearchLeadsProduct([]);
+    }
+  };
 
   useEffect(() => {
     getStage();
-  }, [addStage, editStage, deleteStage]);
+  }, [addStage, editStage, deleteStage, changeLeadsStage,newLeads]);
 
   useEffect(() => {
     getLeads();
@@ -149,6 +137,10 @@ const Context = ({ children }) => {
         setleads,
         handleAddLeads,
         handleChangeLeadsStage,
+        searchLeadsContact,
+        handleSearchLeadsContact,
+        searchLeadsProduct,
+        handleSearchLeadsProduct,
       }}
     >
       {children}
