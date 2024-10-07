@@ -33,7 +33,7 @@ const Context = ({ children }) => {
     try {
       const response = await axios.put(`${apiUrl}/api/Stages/${stage.id}`, {
         name: stage.name,
-        user: stage.user,
+        userId: stage.userId,
       });
       seteditStage(stage);
       toast.success("Stage updated successfully!");
@@ -79,6 +79,15 @@ const Context = ({ children }) => {
       console.log(error);
     }
   };
+  const [idLeads, setidLeads] = useState();
+  const handleGetIdLeads = async (id) => {
+    try {
+      const response = await axios.get(`${apiUrl}/api/Leads/${id}`);
+      setidLeads(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const [changeLeadsStage, setchangeLeadsStage] = useState();
   const handleChangeLeadsStage = async (leadId, newStageId) => {
     try {
@@ -119,7 +128,7 @@ const Context = ({ children }) => {
 
   useEffect(() => {
     getStage();
-  }, [addStage, editStage, deleteStage, changeLeadsStage,newLeads]);
+  }, [addStage, editStage, deleteStage, changeLeadsStage, newLeads]);
 
   useEffect(() => {
     getLeads();
@@ -141,6 +150,8 @@ const Context = ({ children }) => {
         handleSearchLeadsContact,
         searchLeadsProduct,
         handleSearchLeadsProduct,
+        idLeads,
+        handleGetIdLeads,
       }}
     >
       {children}

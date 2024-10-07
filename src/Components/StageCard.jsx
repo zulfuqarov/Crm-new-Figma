@@ -2,6 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import React from "react";
 import { ContextCrm } from "../context/Context";
 import AddLeads from "./AddLeads";
+import { toast } from "react-toastify";
 
 const StageCard = ({ Stage }) => {
   const { handleEditStage, handleDeleteStage } = useContext(ContextCrm);
@@ -14,14 +15,14 @@ const StageCard = ({ Stage }) => {
   const [categoryInputChange, setcategoryInputChange] = useState({
     id: Stage.id,
     name: Stage.name,
-    user: Stage.user,
+    userId: Stage.userId,
   });
 
   const handleCategoryChange = (e) => {
     setcategoryInputChange({
       id: Stage.id,
       name: e.target.value.trim(),
-      user: Stage.user,
+      userId: Stage.userId,
     });
   };
 
@@ -32,23 +33,21 @@ const StageCard = ({ Stage }) => {
 
   const [revenue, setRevenue] = useState(Stage.total_Revenue);
   const [colorClass, setColorClass] = useState("bg-blue-500");
-  const [blueWidth, setBlueWidth] = useState(0); 
+  const [blueWidth, setBlueWidth] = useState(0);
 
   useEffect(() => {
-   
-    const newRevenue = Stage.total_Revenue; 
-    setRevenue(newRevenue); 
+    const newRevenue = Stage.total_Revenue;
+    setRevenue(newRevenue);
 
-    const newWidth = Math.min(Math.max((newRevenue / 100) * 100, 0), 100); 
-    setBlueWidth(newWidth); 
+    const newWidth = Math.min(Math.max((newRevenue / 100) * 100, 0), 100);
+    setBlueWidth(newWidth);
 
-   
     if (newWidth > 70) {
-      setColorClass("bg-green-500"); 
+      setColorClass("bg-green-500");
     } else if (newWidth < 40) {
-      setColorClass("bg-red-500"); 
+      setColorClass("bg-red-500");
     } else {
-      setColorClass("bg-blue-500"); 
+      setColorClass("bg-blue-500");
     }
   }, [Stage.total_Revenue]);
 
@@ -78,7 +77,7 @@ const StageCard = ({ Stage }) => {
                     handleEditStage(categoryInputChange);
                     toggleChangeCategroy();
                   } else {
-                    console.log("Değişiklik yapılmadı");
+                    toast.error("No changes made");
                   }
                 }}
                 className="btn px-2 o-dropdown dropdown-toggle dropdown"
@@ -93,7 +92,7 @@ const StageCard = ({ Stage }) => {
                   setcategoryInputChange({
                     id: Stage.id,
                     name: Stage.name,
-                    user: Stage.user,
+                    userId: Stage.userId,
                   });
                 }}
                 className="btn px-2 o-dropdown dropdown-toggle dropdown"
@@ -136,7 +135,7 @@ const StageCard = ({ Stage }) => {
       <div className="flex items-center justify-between w-full relative">
         <div className="w-40 h-3 bg-red-500 rounded-sm flex overflow-hidden transition-all">
           <div
-            className={`${colorClass} h-full transition-all`} 
+            className={`${colorClass} h-full transition-all`}
             style={{ width: `${blueWidth}%` }}
           />
           <div

@@ -1,12 +1,13 @@
 import React from "react";
 
-const LeadsDetailsMain = () => {
+const LeadsDetailsMain = ({ idLeads }) => {
   return (
     <div className="flex gap-2">
       <div className="flex-[2] border py-[10px] px-[30px]">
         <div>
           <p className="font-inter text-[36px] font-normal  text-left">
-            Alice Johnson
+            {idLeads && idLeads.customer.name}{" "}
+            {idLeads && idLeads.customer.surname}
           </p>
         </div>
         <div className="flex  justify-between pt-[30px] w-[90%]">
@@ -15,7 +16,7 @@ const LeadsDetailsMain = () => {
               Expected revenue
             </p>
             <p className="font-inter text-[17px] font-normal leading-[24.2px] text-left">
-              $40,000.00
+              $ {idLeads && idLeads.lead.expectedRevenue}
             </p>
           </div>
           <div>
@@ -23,7 +24,7 @@ const LeadsDetailsMain = () => {
               Probability
             </p>
             <p className="font-inter text-[17px] font-normal leading-[24.2px] text-left">
-              at 20.00 %
+              at {idLeads && idLeads.lead_Stag_History.probability} %
             </p>
           </div>
           <div>
@@ -32,7 +33,7 @@ const LeadsDetailsMain = () => {
             </p>
             <button className=" rounded bg-[#FFA61A] flex justify-center items-center">
               <p className="w-[110px]  p-[2px] px-[5px] text-[15px] text-white">
-                product
+                {idLeads && idLeads.product.name}
               </p>
             </button>
           </div>
@@ -41,7 +42,10 @@ const LeadsDetailsMain = () => {
               Expected closing date
             </p>
             <p className="font-inter text-[17px] font-normal leading-[24.2px] text-left">
-              12/10/2024
+              {idLeads &&
+                idLeads.lead_Stag_History.expectedClosingDate
+                  .split("T")[0]
+                  .replace("-", "/")}
             </p>
           </div>
         </div>
@@ -51,21 +55,21 @@ const LeadsDetailsMain = () => {
               Company
             </p>
             <p className="font-inter text-[16px] text-[#031225] font-normal leading-[24.2px] text-left">
-              Sunflower Studios
+              {idLeads && idLeads.customer.company}
             </p>
 
             <p className="font-inter text-[18px] font-medium leading-[24.2px] text-left">
               Department
             </p>
             <p className="font-inter text-[16px] text-[#031225] font-normal leading-[24.2px] text-left">
-              Marketing
+              {idLeads && idLeads.customer.department}
             </p>
 
             <p className="font-inter text-[18px] font-medium leading-[24.2px] text-left">
               Position
             </p>
             <p className="font-inter text-[16px] text-[#031225] font-normal leading-[24.2px] text-left">
-              Marketing Specialist
+              {idLeads && idLeads.customer.position}
             </p>
           </div>
 
@@ -74,14 +78,14 @@ const LeadsDetailsMain = () => {
               Email
             </p>
             <p className="font-inter text-[16px] text-[#031225] font-normal leading-[24.2px] text-left">
-              alicejohnson12@gmail.com{" "}
+              {idLeads && idLeads.customer.email}
             </p>
 
             <p className="font-inter text-[18px] font-medium leading-[24.2px] text-left">
               Phone
             </p>
             <p className="font-inter text-[16px] text-[#031225] font-normal leading-[24.2px] text-left">
-              (+994) 70 122 42 32{" "}
+              {idLeads && idLeads.customer.phoneNumber}
             </p>
 
             <p className="font-inter text-[18px] font-medium leading-[24.2px] text-left">
@@ -90,11 +94,11 @@ const LeadsDetailsMain = () => {
             <div className="flex">
               <div className="w-7 h-7 bg-[#77919D] rounded-md overflow-hidden mr-[7px] flex justify-center items-center">
                 <div className="top-1 left-2 font-medium text-white text-base">
-                  J
+                  {idLeads && idLeads.user.name[0]}
                 </div>
               </div>
               <p className="font-inter text-[16px] text-[#031225] font-normal leading-[24.2px] text-left">
-                Michael Admin{" "}
+                {idLeads && idLeads.user.name} {idLeads && idLeads.user.surname}
               </p>
             </div>
           </div>
@@ -102,22 +106,22 @@ const LeadsDetailsMain = () => {
       </div>
 
       <div className="flex-[1] ">
-        <div class="inline-flex w-full flex-col items-start relative">
-          <div class="flex items-center px-5 w-full relative ">
-            <button class="flex items-center justify-center gap-2.5 p-2.5 w-[150px] bg-white border border-[#d2d2d5]">
-              <p class="relative text-[16px] text-[var(--main-text-color)] font-normal font-inter whitespace-nowrap">
+        <div className="inline-flex w-full flex-col items-start relative">
+          <div className="flex items-center px-5 w-full relative ">
+            <button className="flex items-center justify-center gap-2.5 p-2.5 w-[150px] bg-white border border-[#d2d2d5]">
+              <p className="relative text-[16px] text-[var(--main-text-color)] font-normal font-inter whitespace-nowrap">
                 Internal Notes
               </p>
             </button>
-            <button class="flex items-center justify-center gap-2.5 p-2.5 w-[150px] bg-white border border-[#d2d2d5] ml-[-1px] relative">
-              <p class="relative text-[16px] text-[var(--main-text-color)] font-normal font-inter whitespace-nowrap">
+            <button className="flex items-center justify-center gap-2.5 p-2.5 w-[150px] bg-white border border-[#d2d2d5] ml-[-1px] relative">
+              <p className="relative text-[16px] text-[var(--main-text-color)] font-normal font-inter whitespace-nowrap">
                 Extra Information
               </p>
             </button>
           </div>
-          <div class="flex items-start gap-2.5 p-5 mt-[-1px] w-full h-[459px] bg-white border border-[#d2d2d5] rounded-[4px] relative">
+          <div className="flex items-start gap-2.5 p-5 mt-[-1px] w-full h-[459px] bg-white border border-[#d2d2d5] rounded-[4px] relative">
             <textarea
-              class="w-full h-full p-3 border-none resize-none outline-none text-[16px] text-[var(--text-color-grey)] font-normal font-inter rounded-md"
+              className="w-full h-full p-3 border-none resize-none outline-none text-[16px] text-[var(--text-color-grey)] font-normal font-inter rounded-md"
               placeholder="Add a description..."
             ></textarea>
           </div>
