@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { ContextCrm } from "../context/Context";
+import { ContextCrm } from "../ContextCrm/ContextCrm";
 import { toast } from "react-toastify";
 
 const AddLeads = ({ StageId }) => {

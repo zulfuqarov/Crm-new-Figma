@@ -3,7 +3,7 @@ import LeadsDetailsNav from "../Components/LeadsDetailsNav";
 import LeadsDetailsChane from "../Components/LeadsDetailsChane";
 import LeadsDetailsMain from "../Components/LeadsDetailsMain";
 import { useContext, useEffect } from "react";
-import { ContextCrm } from "../Context/Context";
+import { ContextCrm } from "../ContextCrm/ContextCrm";
 const LeadsDetails = () => {
   const { id } = useParams();
 

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { ContextCrm } from "../Context/Context";
+import { ContextCrm } from "../ContextCrm/ContextCrm";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 

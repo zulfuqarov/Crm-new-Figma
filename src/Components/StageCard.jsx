@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import React from "react";
-import { ContextCrm } from "../context/Context";
+import { ContextCrm } from "../ContextCrm/ContextCrm";
 import AddLeads from "./AddLeads";
 import { toast } from "react-toastify";
 

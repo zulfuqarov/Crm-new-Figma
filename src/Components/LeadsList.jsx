@@ -7,7 +7,7 @@ import RevenueLogo from "../Assets/Img/RevenueLogo.svg";
 import DataLogo from "../Assets/Img/DataLogo.svg";
 import SalesPersonLogo from "../Assets/Img/SalesPersonLogo.svg";
 import LedasListCard from "./LedasListCard";
-import { ContextCrm } from "../context/Context";
+import { ContextCrm } from "../ContextCrm/ContextCrm";
 const LeadsList = () => {
   const { leads } = useContext(ContextCrm);
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Context from "./context/Context";
+import Context from "./ContextCrm/ContextCrm";
 import { Route, Routes } from "react-router-dom";
 import Pipeline from "./Pages/Pipeline";
 import Navbar from "./Components/Navbar";

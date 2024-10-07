@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import StageCard from "../Components/StageCard";
-import { ContextCrm } from "../context/Context";
+import { ContextCrm } from "../ContextCrm/ContextCrm";
 import LeadsCard from "../Components/LeadsCard";
 import { Link } from "react-router-dom";
 import AddStage from "../Components/AddStage";
