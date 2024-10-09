@@ -1,8 +1,9 @@
 import React from "react";
-
+import PersonLogo from '../Assets/Img/PersonLogo.svg'
+import GridLog from "../Assets/Img/GridLog.svg"
 const List = ({ showListLeads, toggleListAndGrid }) => {
   return (
-    <div className="frame flex w-[100%] items-center justify-between px-10 py-10 bg-white">
+    <div className="frame flex w-[100%] items-center justify-between px-10 py-10 ">
       <div className="div-wrapper flex w-[168px] gap-2 items-center relative">
         <div className="text-wrapper relative w-fit -mt-1 font-medium text-[32px] text-main-text-color leading-normal">
           Pipeline
@@ -20,15 +21,13 @@ const List = ({ showListLeads, toggleListAndGrid }) => {
           <button
             disabled={showListLeads ? true : false}
             onClick={toggleListAndGrid}
-            className={`${
-              showListLeads ? "border-blue-600 " : ""
-            }div-3 inline-flex h-[44px] justify-center gap-2 px-[12px] flex-none bg-gray-200 border  rounded-[4px] items-center relative`}
+            className={`${showListLeads ? "border-blue-600 " : ""
+              }div-3 inline-flex h-[44px] justify-center gap-2 px-[12px] flex-none bg-gray-200 border  rounded-[4px] items-center relative`}
           >
             <i className="fa-solid fa-bars-staggered" />
             <p
-              className={`text-wrapper-3 relative w-fit font-normal text-main-text-color text-[16px] leading-normal whitespace-nowrap ${
-                showListLeads ? "text-blue-600" : ""
-              }`}
+              className={`text-wrapper-3 relative w-fit font-normal text-main-text-color text-[16px] leading-normal whitespace-nowrap ${showListLeads ? "text-blue-600" : ""
+                }`}
             >
               List
             </p>
@@ -36,22 +35,20 @@ const List = ({ showListLeads, toggleListAndGrid }) => {
           <button
             disabled={showListLeads ? false : true}
             onClick={toggleListAndGrid}
-            className={`${
-              showListLeads ? "" : "border-blue-600 "
-            } div-4 inline-flex h-[44px] justify-center gap-2 px-[12px] flex-none bg-gray-200 border rounded-[4px] items-center relative`}
+            className={`${showListLeads ? "" : "border-blue-600 "
+              } div-4 inline-flex h-[44px] justify-center gap-2 px-[12px] flex-none bg-gray-200 border rounded-[4px] items-center relative`}
           >
-            <i className="fa-solid fa-grip"></i>
+            <img src={GridLog} alt="" />
             <p
-              className={`list relative w-fit font-normal  text-[16px] leading-normal whitespace-nowrap ${
-                showListLeads ? "" : "text-blue-600"
-              }`}
+              className={`list relative w-fit font-normal  text-[16px] leading-normal whitespace-nowrap ${showListLeads ? "" : "text-blue-600"
+                }`}
             >
               Grid
             </p>
           </button>
         </div>
         <button className="div-5 inline-flex h-[44px] justify-center gap-3 px-[12px] flex-none bg-blue-600 rounded-[4px] items-center relative">
-          <i className="fa-solid fa-user text-white"></i>
+          <img src={PersonLogo} alt="" />
           <p className="new-contact relative w-fit font-normal text-white text-[16px] leading-normal whitespace-nowrap">
             New Lead
           </p>

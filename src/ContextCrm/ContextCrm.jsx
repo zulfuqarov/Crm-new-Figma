@@ -125,6 +125,21 @@ const Context = ({ children }) => {
       setsearchLeadsProduct([]);
     }
   };
+  const [swapStage, setswapStage] = useState()
+  const handleswapStage = async (draggedStageId, targetStageId) => {
+    try {
+      const response = await axios.post(`${apiUrl}/api/Stages/swap-stages/`, {
+        draggedStageId: draggedStageId,
+        targetStageId: targetStageId
+      });
+      setswapStage(targetStageId)
+      console.log(response.data)
+      toast.success("Stage swapped successfully!")
+    } catch (error) {
+      console.log(error)
+      toast.error("Failed to swap stage!")
+    }
+  }
 
   useEffect(() => {
     getStage();
@@ -152,6 +167,7 @@ const Context = ({ children }) => {
         handleSearchLeadsProduct,
         idLeads,
         handleGetIdLeads,
+        handleswapStage
       }}
     >
       {children}

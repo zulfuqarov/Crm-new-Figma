@@ -1,8 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { ContextCrm } from "../ContextCrm/ContextCrm";
 import { toast } from "react-toastify";
 
-const AddLeads = ({ StageId }) => {
+const AddLeads = ({ StageId, setshowAddLeads, showAddLeads, buttonRef }) => {
   const {
     handleAddLeads,
     searchLeadsContact,
@@ -10,6 +10,8 @@ const AddLeads = ({ StageId }) => {
     searchLeadsProduct,
     handleSearchLeadsProduct,
   } = useContext(ContextCrm);
+
+  const ref = useRef(null);
 
   const [showContact, setshowContact] = useState(false);
   const [showProduct, setshowProduct] = useState(false);
@@ -48,8 +50,28 @@ const AddLeads = ({ StageId }) => {
     setshowProduct(false);
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (ref.current && !ref.current.contains(event.target) && buttonRef.current &&
+        !buttonRef.current.contains(event.target)) {
+        setshowAddLeads(false);
+      }
+    };
+
+    if (showAddLeads) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [ref, setshowAddLeads]);
+
   return (
-    <div className="flex flex-col w-full   items-start gap-8 p-6 bg-white rounded border border-gray-300 shadow-sm top-[99px] right-0 absolute">
+    <div
+      ref={ref} // Ref'i buraya ekliyoruz
+
+      className="flex flex-col w-full   items-start gap-8 p-6 bg-white rounded border border-gray-300 shadow-sm top-[99px] right-0 absolute">
       <div className="flex flex-col w-full items-start gap-6">
         <div className="flex flex-col w-[100%] items-start justify-center gap-2">
           <p className="w-full text-[16px]  font-medium text-main-text-color">

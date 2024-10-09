@@ -9,7 +9,7 @@ import List from "../Components/List";
 import LeadsList from "../Components/LeadsList";
 
 const Pipeline = () => {
-  const { stage, setstage, leads, setleads, handleChangeLeadsStage } =
+  const { stage, setstage, leads, setleads, handleChangeLeadsStage, handleswapStage } =
     useContext(ContextCrm);
 
   const onDragEnd = (result) => {
@@ -22,7 +22,7 @@ const Pipeline = () => {
       const [reorderedStage] = newStage.splice(source.index, 1);
       newStage.splice(destination.index, 0, reorderedStage);
       setstage(newStage);
-      console.log("ok");
+      handleswapStage(reorderedStage.id, stage[destination.index].id)
       return;
     }
 
@@ -30,9 +30,9 @@ const Pipeline = () => {
       const newLeads = leads.map((oneMap) =>
         oneMap.lead.id === draggableId
           ? {
-              ...oneMap,
-              lead: { ...oneMap.lead, stage_Id: destination.droppableId },
-            }
+            ...oneMap,
+            lead: { ...oneMap.lead, stage_Id: destination.droppableId },
+          }
           : { ...oneMap }
       );
 
@@ -49,7 +49,7 @@ const Pipeline = () => {
 
   if (showListLeads) {
     return (
-      <div>
+      <div className={"bg-[#F9FAFB]"}>
         <List
           toggleListAndGrid={toggleListAndGrid}
           showListLeads={showListLeads}
@@ -59,7 +59,7 @@ const Pipeline = () => {
     );
   } else {
     return (
-      <div className="w-full">
+      <div className="w-full bg-[#F9FAFB]">
         <List
           toggleListAndGrid={toggleListAndGrid}
           showListLeads={showListLeads}
@@ -72,11 +72,10 @@ const Pipeline = () => {
           >
             {(provided, snapshot) => (
               <div
-                className={`w-[1880px] flex   transition-colors duration-200 ${
-                  snapshot.isDraggingOver
+                className={`w-[1880px] flex   transition-colors duration-200 ${snapshot.isDraggingOver
                     ? "bg-gray-100 border-2 border-dashed border-gray-200"
                     : ""
-                }`}
+                  }`}
                 {...provided.droppableProps}
                 ref={provided.innerRef}
               >
@@ -88,7 +87,7 @@ const Pipeline = () => {
                   >
                     {(provided) => (
                       <div
-                        className="w-full px-[8px] bg-white"
+                        className="w-full px-[8px] "
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
@@ -100,11 +99,10 @@ const Pipeline = () => {
                         <Droppable droppableId={Onestage.id} type="Leads">
                           {(provided, snapshot) => (
                             <div
-                              className={`w-full   transition-colors duration-200 ${
-                                snapshot.isDraggingOver
+                              className={`w-full   transition-colors duration-200 ${snapshot.isDraggingOver
                                   ? "bg-gray-100 border-2 border-dashed border-gray-200"
                                   : ""
-                              }`}
+                                }`}
                               ref={provided.innerRef}
                               {...provided.droppableProps}
                               style={{

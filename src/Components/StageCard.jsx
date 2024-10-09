@@ -1,10 +1,13 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 import React from "react";
 import { ContextCrm } from "../ContextCrm/ContextCrm";
 import AddLeads from "./AddLeads";
 import { toast } from "react-toastify";
 
 const StageCard = ({ Stage }) => {
+
+  const buttonRef = useRef(null)
+
   const { handleEditStage, handleDeleteStage } = useContext(ContextCrm);
 
   const [ShowChangeCategroy, setShowChangeCategroy] = useState(false);
@@ -43,7 +46,7 @@ const StageCard = ({ Stage }) => {
     setBlueWidth(newWidth);
 
     if (newWidth > 70) {
-      setColorClass("bg-green-500");
+      setColorClass("bg-blue-500");
     } else if (newWidth < 40) {
       setColorClass("bg-red-500");
     } else {
@@ -52,7 +55,7 @@ const StageCard = ({ Stage }) => {
   }, [Stage.total_Revenue]);
 
   return (
-    <div className="flex flex-col w-[376px] items-start gap-4 py-4 relative group">
+    <div className="flex flex-col w-[100%]  items-start gap-4 py-4 relative group">
       <div className="flex items-center justify-between w-full relative ">
         {ShowChangeCategroy ? (
           <input
@@ -125,22 +128,25 @@ const StageCard = ({ Stage }) => {
             </div>
           )}
           <button
+            ref={buttonRef}
             onClick={toggleAddLeads}
             className="inline-flex items-center gap-2.5 relative"
           >
-            <i className="fa-solid fa-plus"></i>
+            {
+              showAddLeads ? <i className="text-red-500 text-[17px] fa-solid fa-xmark"></i> : <i className="text-[17px] fa-solid fa-plus"></i>
+            }
           </button>
         </div>
       </div>
       <div className="flex items-center justify-between w-full relative">
-        <div className="w-40 h-3 bg-red-500 rounded-sm flex overflow-hidden transition-all">
+        <div className="w-40 h-3  rounded-sm flex overflow-hidden transition-all">
           <div
             className={`${colorClass} h-full transition-all`}
             style={{ width: `${blueWidth}%` }}
           />
           <div
             className="bg-stone-200 h-full transition-all"
-            style={{ width: `${100 - blueWidth}%` }}
+            style={{ width: `${200 - blueWidth}%` }}
           />
         </div>
         <div
@@ -149,7 +155,7 @@ const StageCard = ({ Stage }) => {
           {`$${revenue}`}
         </div>
       </div>
-      {showAddLeads && <AddLeads StageId={Stage.id} />}
+      {showAddLeads && <AddLeads buttonRef={buttonRef} showAddLeads={showAddLeads} setshowAddLeads={setshowAddLeads} StageId={Stage.id} />}
     </div>
   );
 };

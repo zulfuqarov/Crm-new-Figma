@@ -46,7 +46,7 @@ const LedasListCard = ({ index, OneMap }) => {
       <div className="flex w-[307px] h-[52px] items-center gap-3 p-2 pl-5 ">
         <div className="flex items-center gap-4 relative flex-shrink-0">
           <p className="relative w-fit mt-[-1px] font-normal text-gray-900 text-sm">
-            Ocean Blue Designs
+          {OneMap.customer.department ? OneMap.customer.department : '------'}
           </p>
         </div>
       </div>
@@ -88,7 +88,7 @@ const LedasListCard = ({ index, OneMap }) => {
         </div>
         <div className="flex items-center gap-4 relative flex-shrink-0">
           <p className="relative w-fit mt-[-1px] font-normal text-gray-900 text-sm">
-            {OneMap.user.name}
+          {OneMap.user.name} {OneMap.user.surname}
           </p>
         </div>
       </div>
