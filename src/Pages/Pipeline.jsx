@@ -9,7 +9,7 @@ import List from "../Components/List";
 import LeadsList from "../Components/LeadsList";
 
 const Pipeline = () => {
-  const { stage, setstage, leads, setleads, handleChangeLeadsStage, handleswapStage } =
+  const { stage, setstage, leads, setleads, handleChangeLeadsStage, handleswapStage, nameFilter, setnameFilter } =
     useContext(ContextCrm);
 
   const onDragEnd = (result) => {
@@ -35,8 +35,20 @@ const Pipeline = () => {
           }
           : { ...oneMap }
       );
-
       setleads(newLeads);
+
+      if (nameFilter.length > 0) {
+        const newLeads = nameFilter.map((oneMap) =>
+          oneMap.lead.id === draggableId
+            ? {
+              ...oneMap,
+              lead: { ...oneMap.lead, stage_Id: destination.droppableId },
+            }
+            : { ...oneMap }
+        );
+
+        setnameFilter(newLeads);
+      }
 
       handleChangeLeadsStage(draggableId, destination.droppableId);
     }
@@ -73,8 +85,8 @@ const Pipeline = () => {
             {(provided, snapshot) => (
               <div
                 className={`w-[1880px] flex   transition-colors duration-200 ${snapshot.isDraggingOver
-                    ? "bg-gray-100 border-2 border-dashed border-gray-200"
-                    : ""
+                  ? "bg-gray-100 border-2 border-dashed border-gray-200"
+                  : ""
                   }`}
                 {...provided.droppableProps}
                 ref={provided.innerRef}
@@ -100,8 +112,8 @@ const Pipeline = () => {
                           {(provided, snapshot) => (
                             <div
                               className={`w-full   transition-colors duration-200 ${snapshot.isDraggingOver
-                                  ? "bg-gray-100 border-2 border-dashed border-gray-200"
-                                  : ""
+                                ? "bg-gray-100 border-2 border-dashed border-gray-200"
+                                : ""
                                 }`}
                               ref={provided.innerRef}
                               {...provided.droppableProps}
@@ -109,34 +121,65 @@ const Pipeline = () => {
                                 minHeight: "150px",
                               }}
                             >
-                              {leads &&
-                                leads
-                                  .filter(
-                                    (oneLeads) =>
-                                      oneLeads.lead.stage_Id === Onestage.id
-                                  )
-                                  .map((OneMap, index) => (
-                                    <Draggable
-                                      key={OneMap.lead.id}
-                                      draggableId={OneMap.lead.id}
-                                      index={index}
-                                    >
-                                      {(provided) => (
-                                        <Link
-                                          to={`/Leads/${OneMap.lead.id}`}
-                                          className="mb-[10px] inline-block w-full !cursor-pointer"
-                                          ref={provided.innerRef}
-                                          {...provided.draggableProps}
-                                          {...provided.dragHandleProps}
-                                          style={{
-                                            ...provided.draggableProps.style,
-                                          }}
-                                        >
-                                          <LeadsCard Leads={OneMap} />
-                                        </Link>
-                                      )}
-                                    </Draggable>
-                                  ))}
+                              {
+
+                                nameFilter.length > 0 ?
+                                  nameFilter
+                                    .filter(
+                                      (oneLeads) =>
+                                        oneLeads.lead.stage_Id === Onestage.id
+                                    )
+                                    .map((OneMap, index) => (
+                                      <Draggable
+                                        key={OneMap.lead.id}
+                                        draggableId={OneMap.lead.id}
+                                        index={index}
+                                      >
+                                        {(provided) => (
+                                          <Link
+                                            to={`/Leads/${OneMap.lead.id}`}
+                                            className="mb-[10px] inline-block w-full !cursor-pointer"
+                                            ref={provided.innerRef}
+                                            {...provided.draggableProps}
+                                            {...provided.dragHandleProps}
+                                            style={{
+                                              ...provided.draggableProps.style,
+                                            }}
+                                          >
+                                            <LeadsCard Leads={OneMap} />
+                                          </Link>
+                                        )}
+                                      </Draggable>
+                                    )) :
+                                  leads &&
+                                  leads
+                                    .filter(
+                                      (oneLeads) =>
+                                        oneLeads.lead.stage_Id === Onestage.id
+                                    )
+                                    .map((OneMap, index) => (
+                                      <Draggable
+                                        key={OneMap.lead.id}
+                                        draggableId={OneMap.lead.id}
+                                        index={index}
+                                      >
+                                        {(provided) => (
+                                          <Link
+                                            to={`/Leads/${OneMap.lead.id}`}
+                                            className="mb-[10px] inline-block w-full !cursor-pointer"
+                                            ref={provided.innerRef}
+                                            {...provided.draggableProps}
+                                            {...provided.dragHandleProps}
+                                            style={{
+                                              ...provided.draggableProps.style,
+                                            }}
+                                          >
+                                            <LeadsCard Leads={OneMap} />
+                                          </Link>
+                                        )}
+                                      </Draggable>
+                                    ))
+                              }
                               {provided.placeholder}
                             </div>
                           )}

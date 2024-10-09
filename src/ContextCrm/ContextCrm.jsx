@@ -178,7 +178,8 @@ const Context = ({ children }) => {
         handleGetIdLeads,
         handleswapStage,
         handleFilterName,
-        nameFilter
+        nameFilter,
+        setnameFilter
       }}
     >
       {children}
