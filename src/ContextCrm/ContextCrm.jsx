@@ -140,6 +140,15 @@ const Context = ({ children }) => {
       toast.error("Failed to swap stage!")
     }
   }
+  const [nameFilter, setnameFilter] = useState([])
+  const handleFilterName = (e) => {
+    const nameFilteringLeads = leads.filter((oneFilter) => {
+      const fullName = `${oneFilter.customer.name} ${oneFilter.customer.surname}`;
+      return fullName.toLowerCase().trim().includes(e.target.value.toLowerCase().trim());
+    });
+    setnameFilter(nameFilteringLeads)
+  }
+
 
   useEffect(() => {
     getStage();
@@ -167,7 +176,9 @@ const Context = ({ children }) => {
         handleSearchLeadsProduct,
         idLeads,
         handleGetIdLeads,
-        handleswapStage
+        handleswapStage,
+        handleFilterName,
+        nameFilter
       }}
     >
       {children}

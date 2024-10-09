@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 
 import ContacLogo from "../Assets/Img/ContacLogo.svg";
 import CompanyLogo from "../Assets/Img/CompanyLogo.svg";
@@ -9,7 +9,7 @@ import SalesPersonLogo from "../Assets/Img/SalesPersonLogo.svg";
 import LedasListCard from "./LedasListCard";
 import { ContextCrm } from "../ContextCrm/ContextCrm";
 const LeadsList = () => {
-  const { leads } = useContext(ContextCrm);
+  const { leads, nameFilter } = useContext(ContextCrm);
 
   return (
     <div>
@@ -52,9 +52,17 @@ const LeadsList = () => {
         </div>
       </div>
       <div>
-        {leads.map((OneMap, index) => (
-          <LedasListCard OneMap={OneMap} index={index} />
-        ))}
+
+        {
+          nameFilter.length > 0 ?
+            nameFilter.map((OneMap, index) => (
+              <LedasListCard OneMap={OneMap} index={index} />
+            )) : leads.map((OneMap, index) => (
+              <LedasListCard OneMap={OneMap} index={index} />
+            ))
+        }
+
+
       </div>
     </div>
   );
