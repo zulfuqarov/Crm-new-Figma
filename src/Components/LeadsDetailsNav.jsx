@@ -18,14 +18,6 @@ const LeadsDetailsNav = () => {
           </p>
         </div>
       </div>
-      {/* <button className="flex items-center gap-3">
-        <div className="flex items-center h-11 bg-blue-600 rounded px-3">
-          <img className="w-6 h-6" src={PersonLogo} alt="user-add" />
-          <p className="text-white text-base font-normal whitespace-nowrap pl-[10px]">
-            New Lead
-          </p>
-        </div>
-      </button> */}
     </div>
   );
 };
