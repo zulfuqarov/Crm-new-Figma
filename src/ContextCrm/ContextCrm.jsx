@@ -156,11 +156,11 @@ const Context = ({ children }) => {
 
   useEffect(() => {
     getStage();
-  }, [addStage, editStage, deleteStage, changeLeadsStage, newLeads]);
+  }, [addStage, editStage, deleteStage, changeLeadsStage, newLeads, swapStage]);
 
   useEffect(() => {
     getLeads();
-  }, [newLeads, changeLeadsStage]);
+  }, [newLeads, changeLeadsStage, swapStage]);
 
   return (
     <ContextCrm.Provider
