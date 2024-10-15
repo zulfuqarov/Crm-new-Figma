@@ -6,13 +6,16 @@ export const ContextCrm = createContext();
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const Context = ({ children }) => {
+
+  const [succesPopaps, setsuccesPopaps] = useState(false)
+
   // Stage start
   const [stage, setstage] = useState([]);
   const getStage = async () => {
     try {
       const response = await axios(`${apiUrl}/api/Stages`);
       setstage(response.data);
-      console.log(response.data);
+      // console.log(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -22,7 +25,8 @@ const Context = ({ children }) => {
     try {
       const response = await axios.post(`${apiUrl}/api/Stages`, stage);
       setaddStage(response.data);
-      toast.success("Stage added successfully!");
+      setsuccesPopaps(true)
+      // toast.success("Stage added successfully!");
     } catch (error) {
       console.log(error);
       toast.error("Failed to add stage!");
@@ -179,7 +183,9 @@ const Context = ({ children }) => {
         handleswapStage,
         handleFilterName,
         nameFilter,
-        setnameFilter
+        setnameFilter,
+        succesPopaps,
+        setsuccesPopaps
       }}
     >
       {children}

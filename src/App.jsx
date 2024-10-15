@@ -6,12 +6,14 @@ import Navbar from "./Components/Navbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LeadsDetails from "./Pages/LeadsDetails";
+import ComplatePopaps from "./Components/ComplatePopaps";
 
 function App() {
   return (
     <>
       <Context>
         <ToastContainer />
+        <ComplatePopaps />
         <Navbar />
         <Routes>
           <Route path="/Pipeline" element={<Pipeline />} />

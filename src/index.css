@@ -3,8 +3,31 @@
 @tailwind utilities;
 
 .text-transition {
-    transition: background-color 0.5s ease, width 0.5s ease; /* Geçiş süreleri ve efektleri */
+    transition: background-color 0.5s ease, width 0.5s ease;
+    /* Geçiş süreleri ve efektleri */
 }
-body{
+
+body {
     background-color: #F9FAFB;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.animate-fall {
+    animation: fall 1s ease-out forwards;
+    /* 1 saniye sürecek animasyon */
 }

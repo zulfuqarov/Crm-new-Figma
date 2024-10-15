@@ -111,12 +111,7 @@ const StageCard = ({ Stage }) => {
                 className="btn px-2 o-dropdown dropdown-toggle text-slate-400  dropdown opacity-0 group-hover:opacity-100 transition-all hover:text-black"
                 aria-expanded="false"
               >
-                <i
-                  className="fa fa-gear "
-                  role="img"
-                  aria-label="Settings"
-                  title="Settings"
-                />
+                <i className="fa-solid fa-pen"></i>
               </button>
               <button
                 onClick={() => handleDeleteStage(Stage.id)}

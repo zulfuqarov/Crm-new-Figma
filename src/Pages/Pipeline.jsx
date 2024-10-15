@@ -111,7 +111,7 @@ const Pipeline = () => {
                         <Droppable droppableId={Onestage.id} type="Leads">
                           {(provided, snapshot) => (
                             <div
-                              className={`w-full   transition-colors duration-200 ${snapshot.isDraggingOver
+                              className={`w-[360px]  transition-colors duration-200 ${snapshot.isDraggingOver
                                 ? "bg-gray-100 border-2 border-dashed border-gray-200"
                                 : ""
                                 }`}
