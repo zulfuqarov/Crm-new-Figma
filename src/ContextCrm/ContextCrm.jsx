@@ -162,6 +162,45 @@ const Context = ({ children }) => {
     getLeads();
   }, [newLeads, changeLeadsStage, swapStage]);
 
+
+  const [leadColor, setLeadColor] = useState({});
+  const buttonColors = [
+    "bg-[#FFA61A]",
+    "bg-[#AF59F7]",
+    "bg-[#F76A8B]",
+    "bg-[#2B8547]",
+    "bg-[#6A8BF7]",
+    "bg-[#FF5733]",
+    "bg-[#33C3FF]",
+  ];
+
+  useEffect(() => {
+    if (leads.length > 0) {
+      const leadsProductNameColor = {};
+
+      leads.forEach((lead) => {
+        const productName = lead.product.name;
+
+        if (!leadsProductNameColor[productName]) {
+          const usedColors = Object.values(leadsProductNameColor);
+          const availableColors = buttonColors.filter(
+            (color) => !usedColors.includes(color)
+          );
+
+          if (availableColors.length > 0) {
+            leadsProductNameColor[productName] = availableColors[
+              Math.floor(Math.random() * availableColors.length)
+            ];
+          }
+        }
+      });
+
+      setLeadColor(leadsProductNameColor);
+    }
+  }, [leads]);
+
+
+
   return (
     <ContextCrm.Provider
       value={{
@@ -185,7 +224,8 @@ const Context = ({ children }) => {
         nameFilter,
         setnameFilter,
         succesPopaps,
-        setsuccesPopaps
+        setsuccesPopaps,
+        leadColor
       }}
     >
       {children}

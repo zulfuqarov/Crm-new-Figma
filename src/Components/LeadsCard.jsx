@@ -1,26 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { ContextCrm } from "../ContextCrm/ContextCrm";
 
 const LeadsCard = ({ Leads }) => {
-  const [leadColor, setLeadColor] = useState("");
+  const { leadColor } = useContext(ContextCrm)
+  // const getRandomColor = () => {
+  //   return buttonColors[Math.floor(Math.random() * buttonColors.length)];
+  // };
 
-  const buttonColors = [
-    "bg-[#FFA61A]",
-    "bg-[#AF59F7]",
-    "bg-[#F76A8B]",
-    "bg-[#2B8547]",
-    "bg-[#6A8BF7]",
-  ];
-
-  const getRandomColor = () => {
-    return buttonColors[Math.floor(Math.random() * buttonColors.length)];
-  };
-
-  useEffect(() => {
-    if (!leadColor) {
-      const newColor = getRandomColor();
-      setLeadColor(newColor);
-    }
-  }, [leadColor]);
+  // useEffect(() => {
+  //   if (!leadColor) {
+  //     const newColor = getRandomColor();
+  //     setLeadColor(newColor);
+  //   }
+  // }, [leadColor]);
 
   return (
     <div className="flex flex-col gap-3 p-4 bg-white border border-gray-300 rounded-md">
@@ -38,7 +30,7 @@ const LeadsCard = ({ Leads }) => {
             $ {Leads.lead.expectedRevenue}
           </div>
           <button
-            className={`flex items-center justify-center gap-2 ${leadColor} rounded-full py-0.5 px-2 w-[150px]`}
+            className={`flex items-center justify-center gap-2 ${leadColor[Leads.product.name]} rounded-full py-0.5 px-2 w-[150px]`}
           >
             <p className="text-white text-sm">{Leads.product.name}</p>
           </button>
