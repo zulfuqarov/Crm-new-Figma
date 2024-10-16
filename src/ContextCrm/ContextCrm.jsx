@@ -149,14 +149,14 @@ const Context = ({ children }) => {
     setnameFilter(nameFilteringLeads)
   }
 
+
+
   useEffect(() => {
     getStage();
-    console.log('okay1')
   }, [addStage, editStage, deleteStage, changeLeadsStage, newLeads, swapStage]);
 
   useEffect(() => {
     getLeads();
-    console.log('okay2')
   }, [newLeads, changeLeadsStage, swapStage]);
 
 
