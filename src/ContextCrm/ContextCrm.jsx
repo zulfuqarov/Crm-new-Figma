@@ -15,7 +15,6 @@ const Context = ({ children }) => {
     try {
       const response = await axios(`${apiUrl}/api/Stages`);
       setstage(response.data);
-      // console.log(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -26,7 +25,6 @@ const Context = ({ children }) => {
       const response = await axios.post(`${apiUrl}/api/Stages`, stage);
       setaddStage(response.data);
       setsuccesPopaps(true)
-      // toast.success("Stage added successfully!");
     } catch (error) {
       console.log(error);
       toast.error("Failed to add stage!");
@@ -40,7 +38,7 @@ const Context = ({ children }) => {
         userId: stage.userId,
       });
       seteditStage(stage);
-      toast.success("Stage updated successfully!");
+      setsuccesPopaps(true)
     } catch (error) {
       console.log(error);
       toast.error("Failed to update stage!");
@@ -51,7 +49,7 @@ const Context = ({ children }) => {
     try {
       const response = await axios.delete(`${apiUrl}/api/Stages/${id}`);
       setdeleteStage(id);
-      toast.success("Stage deleted successfully!");
+      setsuccesPopaps(true)
     } catch (error) {
       console.log(error);
       toast.error("Failed to delete stage!");
@@ -64,7 +62,6 @@ const Context = ({ children }) => {
     try {
       const response = await axios(`${apiUrl}/api/Leads`);
       setleads(response.data);
-      console.log(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -78,7 +75,7 @@ const Context = ({ children }) => {
         userId: userId,
       });
       setnewLeads(response.data);
-      toast.success("Lead added successfully!");
+      setsuccesPopaps(true)
     } catch (error) {
       console.log(error);
     }
@@ -99,7 +96,7 @@ const Context = ({ children }) => {
         `${apiUrl}/api/Leads/${leadId}?stageId=${newStageId}`
       );
       setchangeLeadsStage(response);
-      toast.success("Lead status updated successfully!");
+      setsuccesPopaps(true)
     } catch (error) {
       console.log(error);
       toast.error("Failed to update lead status!");
@@ -137,8 +134,7 @@ const Context = ({ children }) => {
         targetStageId: targetStageId
       });
       setswapStage(targetStageId)
-      console.log(response.data)
-      toast.success("Stage swapped successfully!")
+      setsuccesPopaps(true)
     } catch (error) {
       console.log(error)
       toast.error("Failed to swap stage!")
@@ -153,14 +149,18 @@ const Context = ({ children }) => {
     setnameFilter(nameFilteringLeads)
   }
 
-
   useEffect(() => {
     getStage();
+    console.log('okay1')
   }, [addStage, editStage, deleteStage, changeLeadsStage, newLeads, swapStage]);
 
   useEffect(() => {
     getLeads();
+    console.log('okay2')
   }, [newLeads, changeLeadsStage, swapStage]);
+
+
+
 
 
   const [leadColor, setLeadColor] = useState({});
@@ -175,7 +175,11 @@ const Context = ({ children }) => {
   ];
 
   useEffect(() => {
-    if (leads.length > 0) {
+    const savedLeadColors = localStorage.getItem("leadColors");
+
+    if (savedLeadColors) {
+      setLeadColor(JSON.parse(savedLeadColors));
+    } else if (leads.length > 0) {
       const leadsProductNameColor = {};
 
       leads.forEach((lead) => {
@@ -196,10 +200,10 @@ const Context = ({ children }) => {
       });
 
       setLeadColor(leadsProductNameColor);
+
+      localStorage.setItem("leadColors", JSON.stringify(leadsProductNameColor));
     }
-  }, [leads]);
-
-
+  }, []);
 
   return (
     <ContextCrm.Provider

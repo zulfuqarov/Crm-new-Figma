@@ -1,31 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const LeadsDetailsMain = ({ idLeads }) => {
 
-  const { id } = useParams(); 
+  const { id } = useParams();
   const [noteInput, setnoteInput] = useState({
     Id: "",
     content: "",
   });
 
   const handleSaveNote = () => {
-    const getLocalNote = JSON.parse(localStorage.getItem("Notes")) || []; 
+    const getLocalNote = JSON.parse(localStorage.getItem("Notes")) || [];
 
-   
+
     const updatedNote = getLocalNote.some((item) => item.Id === id)
-      ? getLocalNote.map((item) => (item.Id === id ? noteInput : item)) 
-      : [...getLocalNote, noteInput]; 
+      ? getLocalNote.map((item) => (item.Id === id ? noteInput : item))
+      : [...getLocalNote, noteInput];
 
-    localStorage.setItem("Notes", JSON.stringify(updatedNote)); 
+    localStorage.setItem("Notes", JSON.stringify(updatedNote));
+    toast.success("Note saving")
   };
 
- 
+
   useEffect(() => {
-    const getLocalNote = JSON.parse(localStorage.getItem("Notes")) || []; 
-    const currentNote = getLocalNote.find((item) => item.Id === id); 
+    const getLocalNote = JSON.parse(localStorage.getItem("Notes")) || [];
+    const currentNote = getLocalNote.find((item) => item.Id === id);
     if (currentNote) {
-      setnoteInput(currentNote); 
+      setnoteInput(currentNote);
     } else {
       setnoteInput({
         Id: "",
