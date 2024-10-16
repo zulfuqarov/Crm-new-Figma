@@ -1,6 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 const LeadsDetailsMain = ({ idLeads }) => {
+
+  const { id } = useParams(); 
+  const [noteInput, setnoteInput] = useState({
+    Id: "",
+    content: "",
+  });
+
+  const handleSaveNote = () => {
+    const getLocalNote = JSON.parse(localStorage.getItem("Notes")) || []; 
+
+   
+    const updatedNote = getLocalNote.some((item) => item.Id === id)
+      ? getLocalNote.map((item) => (item.Id === id ? noteInput : item)) 
+      : [...getLocalNote, noteInput]; 
+
+    localStorage.setItem("Notes", JSON.stringify(updatedNote)); 
+  };
+
+ 
+  useEffect(() => {
+    const getLocalNote = JSON.parse(localStorage.getItem("Notes")) || []; 
+    const currentNote = getLocalNote.find((item) => item.Id === id); 
+    if (currentNote) {
+      setnoteInput(currentNote); 
+    } else {
+      setnoteInput({
+        Id: "",
+        content: "",
+      })
+    }
+  }, [id]);
+
+  const handleNoteChange = (e) => {
+    setnoteInput({ Id: id, content: e.target.value });
+  };
+
   return (
     <div className="flex gap-2">
       <div className="flex-[2] border py-[10px] px-[30px]">
@@ -108,19 +145,24 @@ const LeadsDetailsMain = ({ idLeads }) => {
       <div className="flex-[1] ">
         <div className="inline-flex w-full flex-col items-start relative">
           <div className="flex items-center px-5 w-full relative ">
-            <button className="flex items-center justify-center gap-2.5 p-2.5 w-[150px] bg-white border border-[#d2d2d5]">
-              <p className="relative text-[16px] text-[var(--main-text-color)] font-normal font-inter whitespace-nowrap">
+            <button className="flex items-center justify-center gap-2.5 p-2.5 w-[150px] bg-white border border-t-[2px] border-t-[#1971F6]">
+              <p className="relative  text-[16px] text-[var(--main-text-color)] font-normal font-inter whitespace-nowrap">
                 Internal Notes
               </p>
             </button>
-            <button className="flex items-center justify-center gap-2.5 p-2.5 w-[150px] bg-white border border-[#d2d2d5] ml-[-1px] relative">
-              <p className="relative text-[16px] text-[var(--main-text-color)] font-normal font-inter whitespace-nowrap">
-                Extra Information
+            <button
+              onClick={handleSaveNote}
+              className="flex items-center justify-center gap-2.5 p-2.5 w-[150px] bg-[#1971F6] border border-[#d2d2d5] ml-[-1px] relative transition-colors duration-300 ease-in-out hover:bg-[#155CCB]">
+              <p className="relative text-white text-[16px] font-normal font-inter whitespace-nowrap transition-colors duration-300 ease-in-out hover:text-[#E0E0E0]">
+                Save Notes
               </p>
             </button>
+
           </div>
           <div className="flex items-start gap-2.5 p-5 mt-[-1px] w-full h-[459px] bg-white border border-[#d2d2d5] rounded-[4px] relative">
             <textarea
+              value={noteInput.content}
+              onChange={handleNoteChange}
               className="w-full h-full p-3 border-none resize-none outline-none text-[16px] text-[var(--text-color-grey)] font-normal font-inter rounded-md"
               placeholder="Add a description..."
             ></textarea>
