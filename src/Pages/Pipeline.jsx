@@ -9,7 +9,7 @@ import List from "../Components/List";
 import LeadsList from "../Components/LeadsList";
 
 const Pipeline = () => {
-  const { stage, setstage, leads, setleads, handleChangeLeadsStage, handleswapStage, nameFilter, setnameFilter } =
+  const { stage, setstage, leads, setleads, handleChangeLeadsStage, nameFilter, setnameFilter } =
     useContext(ContextCrm);
 
   const onDragEnd = (result) => {
@@ -21,8 +21,8 @@ const Pipeline = () => {
       const newStage = [...stage];
       const [reorderedStage] = newStage.splice(source.index, 1);
       newStage.splice(destination.index, 0, reorderedStage);
-      setstage(newStage);
-      handleswapStage(reorderedStage.id, stage[destination.index].id)
+      localStorage.setItem("newStage", JSON.stringify(newStage))
+      setstage(JSON.parse(localStorage.getItem("newStage")));
       return;
     }
 
@@ -83,12 +83,14 @@ const Pipeline = () => {
           >
             {(provided, snapshot) => (
               <div
-                className={`${stage && `w-[${376 * stage.length}px]`} flex   transition-colors duration-200 ${snapshot.isDraggingOver
+                className={`  flex   transition-colors duration-200 ${snapshot.isDraggingOver
                   ? "bg-gray-100 border-2 border-dashed border-gray-200"
                   : ""
                   }`}
                 {...provided.droppableProps}
                 ref={provided.innerRef}
+                style={{ width: `${376 * stage.length}px` }}
+
               >
                 {
                   stage &&

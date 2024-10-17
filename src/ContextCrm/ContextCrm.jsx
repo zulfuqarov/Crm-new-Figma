@@ -14,7 +14,16 @@ const Context = ({ children }) => {
   const getStage = async () => {
     try {
       const response = await axios(`${apiUrl}/api/Stages`);
-      setstage(response.data);
+      const newStageLocal = JSON.parse(localStorage.getItem("newStage")) || [];
+      response.data.forEach(stage => {
+        if (!newStageLocal.some(localStage => localStage.id === stage.id)) {
+          newStageLocal.push(stage);
+        }
+      });
+      const updatedStageLocal = newStageLocal.filter(localStage =>
+        response.data.some(stage => stage.id === localStage.id)
+      );
+      setstage(updatedStageLocal)
     } catch (error) {
       console.log(error);
     }
@@ -126,20 +135,20 @@ const Context = ({ children }) => {
       setsearchLeadsProduct([]);
     }
   };
-  const [swapStage, setswapStage] = useState()
-  const handleswapStage = async (draggedStageId, targetStageId) => {
-    try {
-      const response = await axios.post(`${apiUrl}/api/Stages/swap-stages/`, {
-        draggedStageId: draggedStageId,
-        targetStageId: targetStageId
-      });
-      setswapStage(targetStageId)
-      setsuccesPopaps(true)
-    } catch (error) {
-      console.log(error)
-      toast.error("Failed to swap stage!")
-    }
-  }
+  // const [swapStage, setswapStage] = useState()
+  // const handleswapStage = async (draggedStageId, targetStageId) => {
+  //   try {
+  //     const response = await axios.post(`${apiUrl}/api/Stages/swap-stages/`, {
+  //       draggedStageId: draggedStageId,
+  //       targetStageId: targetStageId
+  //     });
+  //     setswapStage(targetStageId)
+  //     setsuccesPopaps(true)
+  //   } catch (error) {
+  //     console.log(error)
+  //     toast.error("Failed to swap stage!")
+  //   }
+  // }
   const [nameFilter, setnameFilter] = useState([])
   const handleFilterName = (e) => {
     const nameFilteringLeads = leads.filter((oneFilter) => {
@@ -153,11 +162,11 @@ const Context = ({ children }) => {
 
   useEffect(() => {
     getStage();
-  }, [addStage, editStage, deleteStage, changeLeadsStage, newLeads, swapStage]);
+  }, [addStage, editStage, deleteStage, newLeads]);
 
   useEffect(() => {
     getLeads();
-  }, [newLeads, changeLeadsStage, swapStage]);
+  }, [newLeads]);
 
 
 
@@ -223,7 +232,6 @@ const Context = ({ children }) => {
         handleSearchLeadsProduct,
         idLeads,
         handleGetIdLeads,
-        handleswapStage,
         handleFilterName,
         nameFilter,
         setnameFilter,
