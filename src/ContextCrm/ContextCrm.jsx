@@ -162,11 +162,11 @@ const Context = ({ children }) => {
 
   useEffect(() => {
     getStage();
-  }, [addStage, editStage, deleteStage, newLeads]);
+  }, [addStage, editStage, deleteStage, newLeads, changeLeadsStage]);
 
   useEffect(() => {
     getLeads();
-  }, [newLeads]);
+  }, [newLeads, changeLeadsStage]);
 
 
 
@@ -212,7 +212,7 @@ const Context = ({ children }) => {
 
       localStorage.setItem("leadColors", JSON.stringify(leadsProductNameColor));
     }
-  }, []);
+  }, [leads]);
 
   return (
     <ContextCrm.Provider

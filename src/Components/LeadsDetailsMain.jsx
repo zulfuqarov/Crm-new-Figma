@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { ContextCrm } from "../ContextCrm/ContextCrm";
 
 const LeadsDetailsMain = ({ idLeads }) => {
+
+  const { leadColor } = useContext(ContextCrm)
 
   const { id } = useParams();
   const [noteInput, setnoteInput] = useState({
@@ -70,7 +73,7 @@ const LeadsDetailsMain = ({ idLeads }) => {
             <p className="font-inter text-[18px] font-medium leading-[24.2px] text-left pb-[20px]">
               Product
             </p>
-            <button className=" rounded bg-[#FFA61A] flex justify-center items-center">
+            <button className={`rounded ${leadColor[idLeads.product.name]} flex justify-center items-center`}>
               <p className="w-[110px]  p-[2px] px-[5px] text-[15px] text-white">
                 {idLeads && idLeads.product.name}
               </p>
@@ -171,7 +174,7 @@ const LeadsDetailsMain = ({ idLeads }) => {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 
