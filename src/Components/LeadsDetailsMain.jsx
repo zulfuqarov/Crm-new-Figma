@@ -73,7 +73,7 @@ const LeadsDetailsMain = ({ idLeads }) => {
             <p className="font-inter text-[18px] font-medium leading-[24.2px] text-left pb-[20px]">
               Product
             </p>
-            <button className={`rounded ${leadColor[idLeads.product.name]} flex justify-center items-center`}>
+            <button className={`rounded ${idLeads && leadColor[idLeads.product.name]} flex justify-center items-center`}>
               <p className="w-[110px]  p-[2px] px-[5px] text-[15px] text-white">
                 {idLeads && idLeads.product.name}
               </p>
