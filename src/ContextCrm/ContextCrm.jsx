@@ -23,9 +23,11 @@ const Context = ({ children }) => {
       const updatedStageLocal = newStageLocal.filter(localStage =>
         response.data.some(stage => stage.id === localStage.id)
       );
+      localStorage.setItem("newStage", JSON.stringify(updatedStageLocal))
       setstage(updatedStageLocal)
     } catch (error) {
       console.log(error);
+      setstage([])
     }
   };
   const [addStage, setaddStage] = useState();
@@ -41,6 +43,9 @@ const Context = ({ children }) => {
   };
   const [editStage, seteditStage] = useState();
   const handleEditStage = async (stage) => {
+    const newStageLocal = JSON.parse(localStorage.getItem("newStage")) || [];
+    newStageLocal.find((localStage) => localStage.id === stage.id).name = stage.name;
+    localStorage.setItem("newStage", JSON.stringify(newStageLocal))
     try {
       const response = await axios.put(`${apiUrl}/api/Stages/${stage.id}`, {
         name: stage.name,
@@ -55,6 +60,8 @@ const Context = ({ children }) => {
   };
   const [deleteStage, setdeleteStage] = useState();
   const handleDeleteStage = async (id) => {
+    const newStageLocal = JSON.parse(localStorage.getItem("newStage")) || [];
+    localStorage.setItem("newStage", JSON.stringify(newStageLocal.filter((localStage) => localStage.id !== id)))
     try {
       const response = await axios.delete(`${apiUrl}/api/Stages/${id}`);
       setdeleteStage(id);
