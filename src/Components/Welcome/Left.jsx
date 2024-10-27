@@ -40,8 +40,9 @@ const Left = () => {
                 </div>
             </div>
 
-            <div className='pt-[30px] flex flex-col justify-center items-center'>
+            <div className='pt-[30px] flex flex-col justify-center '>
                 <p className='text-[#031225] '>Already have an account? <Link to="/Login" className='font-medium text-[#1971F6]'>Log in</Link></p>
+                <p className='text-[#031225] pt-[10px]'>Create New account <Link to="/Register" className='font-medium text-[#1971F6]'>Register</Link></p>
                 <p className='text-[#686868] font-normal pt-[10px]'>By signing up, you agree to our <span className='text-[#031225]  font-medium'>Terms</span> & <span className='text-[#031225] font-medium'>Privacy</span></p>
             </div>
 

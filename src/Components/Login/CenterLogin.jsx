@@ -1,9 +1,39 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import Logo from "../../Assets/Img/Logo.svg"
 import GoogleLogo from "../../Assets/Img/GoogleLogo..svg"
 import { Link } from 'react-router-dom'
+import { ContextUserData } from '../../ContextCrm/ContextUser'
 
 const Left = () => {
+
+  const { loginApi } = useContext(ContextUserData)
+
+  const [loginInput, setloginInput] = useState({})
+  const [error, seterror] = useState({})
+
+
+  const handleChangeloginInput = (e) => {
+    const { name, value } = e.target
+    setloginInput({ ...loginInput, [name]: value })
+  }
+
+  const validateInputs = () => {
+    const newErrors = {};
+
+    // Email validasyonu
+    if (!loginInput.email || !/^\S+@\S+\.\S+$/.test(loginInput.email)) {
+      newErrors.email = 'Please enter a valid email address';
+    }
+
+    // password validasyonu
+    if (!loginInput.password || loginInput.password.length < 8) {
+      newErrors.password = 'Password must be 8+ chars, with uppercase, lowercase, number, and symbol.';
+    }
+
+    return newErrors;
+
+  }
+
   return (
     <div className='px-[20px] pt-[20px] '>
       <div className='flex  items-center'>
@@ -23,16 +53,31 @@ const Left = () => {
           <div className='pt-[30px] flex flex-col'>
             <label className='text-[#031225] pb-[10px]' htmlFor="">Email</label>
             <input
+              name='email'
+              value={loginInput.email || ''}
+              onChange={handleChangeloginInput}
               type="email"
-              className="w-[432px] h-[44px] px-4 py-2 gap-2 rounded border border-[#D2D2D5]    focus:outline-none" placeholder='name@example.com'
+              className={`w-[432px] h-[44px] px-4 py-2 gap-2 rounded border  focus:outline-none ${loginInput.email ? error.email ? 'border-red-500' : 'border-blue-500' : 'border-[#D2D2D5]'}`}
+              placeholder='name@example.com'
             />
+            {
+              error.email ? <p className='text-red-500 text-[13px] pt-[7px] h-[25px]'>{error.email}</p> : ''
+            }
           </div>
           <div className='pt-[30px] flex flex-col'>
             <label className='text-[#031225] pb-[10px]' htmlFor="">Password</label>
             <input
+              name='password'
+              value={loginInput.password || ''}
+              onChange={handleChangeloginInput}
               type="password"
-              className="w-[432px] h-[44px] px-4 py-2 gap-2 rounded border border-[#D2D2D5]    focus:outline-none" placeholder='Enter your password'
+              className={`w-[432px] h-[44px] px-4 py-2 gap-2 rounded border    focus:outline-none
+                ${loginInput.password ? error.password ? 'border-red-500' : 'border-blue-500' : 'border-[#D2D2D5] '}
+                `} placeholder='Enter your password'
             />
+            {
+              error.password ? <p className='text-red-500 text-[13px] pt-[7px] h-[25px]'>{error.password}</p> : ''
+            }
           </div>
 
           <div className='pt-[10px]'>
@@ -41,6 +86,14 @@ const Left = () => {
 
           <div className='pt-[20px]'>
             <button
+              onClick={() => {
+                const validationErrors = validateInputs();
+                seterror(validationErrors);
+
+                if (Object.keys(validationErrors).length === 0) {
+                  loginApi(loginInput)
+                }
+              }}
               className="w-[432px] h-[44px] px-4 py-2 gap-2 rounded bg-[#1971F6] text-white border "
             >
               Log in

@@ -13,7 +13,7 @@ const Context = ({ children }) => {
   const [stage, setstage] = useState([]);
   const getStage = async () => {
     try {
-      const response = await axios(`${apiUrl}/api/Stages`);
+      const response = await axios.get(`${apiUrl}/api/Stages`);
       const newStageLocal = JSON.parse(localStorage.getItem("newStage")) || [];
       response.data.forEach(stage => {
         if (!newStageLocal.some(localStage => localStage.id === stage.id)) {
