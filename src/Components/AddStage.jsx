@@ -7,7 +7,7 @@ const AddStage = () => {
   const [show, setShow] = useState(false);
   const [stageNameInput, setStageNameInput] = useState({
     name: "",
-    userId: 99,
+    userId: JSON.parse(localStorage.getItem('userId')).value,
   });
 
   const handleToggle = () => {
@@ -35,7 +35,7 @@ const AddStage = () => {
                 handleAddStage(stageNameInput);
                 setStageNameInput({
                   name: "",
-                  userId: 99,
+                  userId: JSON.parse(localStorage.getItem('userId')).value,
                 });
               } else {
                 toast.error("Failed to add stage!");

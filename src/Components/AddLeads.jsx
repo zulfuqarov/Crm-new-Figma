@@ -69,7 +69,7 @@ const AddLeads = ({ StageId, setshowAddLeads, showAddLeads, buttonRef }) => {
 
   return (
     <div
-      ref={ref} // Ref'i buraya ekliyoruz
+      ref={ref}
 
       className="flex flex-col w-full   items-start gap-8 p-6 bg-white rounded border border-gray-300 shadow-sm top-[99px] right-0 absolute">
       <div className="flex flex-col w-full items-start gap-6">
@@ -214,7 +214,7 @@ const AddLeads = ({ StageId, setshowAddLeads, showAddLeads, buttonRef }) => {
                 productId: product.id,
               };
 
-              handleAddLeads(updatedLeads, StageId, 99);
+              handleAddLeads(updatedLeads, StageId, JSON.parse(localStorage.getItem('userId')).value);
               setnewLeads({});
               setContact({ id: "", name: "" });
               setProduct({ id: "", name: "" });

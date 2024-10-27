@@ -28,7 +28,7 @@ const Pipeline = () => {
 
     if (type === "Leads") {
       const newLeads = leads.map((oneMap) =>
-        oneMap.lead.id === draggableId
+        oneMap.lead.id === draggableId && oneMap.lead.userId === JSON.parse(localStorage.getItem('userId')).value
           ? {
             ...oneMap,
             lead: { ...oneMap.lead, stage_Id: destination.droppableId },
@@ -39,7 +39,7 @@ const Pipeline = () => {
 
       if (nameFilter.length > 0) {
         const newLeads = nameFilter.map((oneMap) =>
-          oneMap.lead.id === draggableId
+          oneMap.lead.id === draggableId && oneMap.lead.userId === JSON.parse(localStorage.getItem('userId')).value
             ? {
               ...oneMap,
               lead: { ...oneMap.lead, stage_Id: destination.droppableId },

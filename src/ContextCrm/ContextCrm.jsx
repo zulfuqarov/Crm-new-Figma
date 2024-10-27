@@ -109,13 +109,13 @@ const Context = ({ children }) => {
   const handleChangeLeadsStage = async (leadId, newStageId) => {
     try {
       const response = await axios.put(
-        `${apiUrl}/api/Leads/${leadId}?stageId=${newStageId}`
+        `${apiUrl}/api/Leads/${leadId}?stageId=${newStageId}&userId=${JSON.parse(localStorage.getItem('userId')).value}`
       );
       setchangeLeadsStage(response);
       setsuccesPopaps(true)
     } catch (error) {
       console.log(error);
-      toast.error("Failed to update lead status!");
+      toast.error(`${error.response.data}`);
     }
   };
   const [searchLeadsContact, setsearchLeadsContact] = useState([]);
