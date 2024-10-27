@@ -127,7 +127,8 @@ const ContextUser = ({ children }) => {
             registerApi,
             loginApi,
             forgetPassword,
-            ChangePassword
+            ChangePassword,
+            
         }}>
             {children}
         </ContextUserData.Provider>

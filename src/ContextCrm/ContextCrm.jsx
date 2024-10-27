@@ -23,6 +23,15 @@ const Context = ({ children }) => {
       const updatedStageLocal = newStageLocal.filter(localStage =>
         response.data.some(stage => stage.id === localStage.id)
       );
+
+      response.data.forEach((stage) => {
+        const existingStage = updatedStageLocal.find(localStage => localStage.id === stage.id);
+        if (existingStage) {
+          existingStage.total_Revenue = stage.total_Revenue;
+        }
+      })
+
+
       localStorage.setItem("newStage", JSON.stringify(updatedStageLocal))
       setstage(updatedStageLocal)
     } catch (error) {
@@ -60,10 +69,10 @@ const Context = ({ children }) => {
   };
   const [deleteStage, setdeleteStage] = useState();
   const handleDeleteStage = async (id) => {
-    const newStageLocal = JSON.parse(localStorage.getItem("newStage")) || [];
-    localStorage.setItem("newStage", JSON.stringify(newStageLocal.filter((localStage) => localStage.id !== id)))
     try {
       const response = await axios.delete(`${apiUrl}/api/Stages/${id}`);
+      const newStageLocal = JSON.parse(localStorage.getItem("newStage")) || [];
+      localStorage.setItem("newStage", JSON.stringify(newStageLocal.filter((localStage) => localStage.id !== id)))
       setdeleteStage(id);
       setsuccesPopaps(true)
     } catch (error) {

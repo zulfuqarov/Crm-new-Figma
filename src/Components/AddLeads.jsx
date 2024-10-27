@@ -186,7 +186,7 @@ const AddLeads = ({ StageId, setshowAddLeads, showAddLeads, buttonRef }) => {
           </p>
           <input
             className="w-full h-[36px] border border-gray-300 rounded p-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300 transition"
-            type="date" // Tarih seçici
+            type="date" 
             placeholder="e.g. (mm/dd/yyyy)"
             name="expectedClosingDate"
             onChange={onChangeNewLeads}

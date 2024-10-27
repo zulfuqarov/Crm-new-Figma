@@ -39,20 +39,19 @@ const StageCard = ({ Stage }) => {
   const [blueWidth, setBlueWidth] = useState(0);
 
   useEffect(() => {
-    // const newRevenue = Stage.total_Revenue;
-    // setRevenue(newRevenue);
+    const newRevenue = Stage.total_Revenue;
+    setRevenue(newRevenue);
 
-    // const newWidth = Math.min(Math.max((newRevenue / 100) * 100, 0), 100);
-    // setBlueWidth(newWidth);
+    const newWidth = Math.min(Math.max((newRevenue / 100) * 100, 0), 100);
+    setBlueWidth(newWidth);
 
-    // if (newWidth > 70) {
-    //   setColorClass("bg-blue-500");
-    // } else if (newWidth < 40) {
-    //   setColorClass("bg-red-500");
-    // } else {
-    //   setColorClass("bg-blue-500");
-    // }
-    console.log('sssss', Stage)
+    if (newWidth > 70) {
+      setColorClass("bg-blue-500");
+    } else if (newWidth < 40) {
+      setColorClass("bg-red-500");
+    } else {
+      setColorClass("bg-blue-500");
+    }
   }, [Stage.total_Revenue]);
 
   return (
