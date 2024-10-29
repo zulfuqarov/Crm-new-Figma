@@ -30,8 +30,8 @@ function App() {
           {hideNavbar ? null : <ComplatePopaps />}
           {hideNavbar ? null : <Navbar />}
           <Routes>
-            <Route path="/" element={<Welcome />} />
-            <Route path="/Login" element={<Login />} />
+            <Route path="/Login" element={<Welcome />} />
+            {/* <Route path="/Login" element={<Login />} /> */}
             <Route path="/Register" element={< Register />} />
             <Route path="/Forget-Password" element={<ForgetPassword />} />
             <Route path="/Change-Password" element={<ChangePassword />} />

@@ -26,6 +26,10 @@ const ContextUser = ({ children }) => {
         }
     }
 
+    const [userIdToken, setuserIdToken] = useState({
+        token: JSON.parse(localStorage.getItem("token")),
+        userId: JSON.parse(localStorage.getItem("userId"))
+    })
     const loginApi = async (data) => {
         try {
             const response = await axios.post(`${apiUrl}/api/admin/User/login`, data)
@@ -39,6 +43,10 @@ const ContextUser = ({ children }) => {
             localStorage.setItem('token', JSON.stringify(tokenData));
             localStorage.setItem('userId', JSON.stringify(userIdData))
             navigate('/Pipeline')
+            setuserIdToken({
+                token: tokenData,
+                userId: userIdData
+            })
         } catch (error) {
             console.log(error)
             toast.error(`${error.response.data}`)
@@ -89,11 +97,7 @@ const ContextUser = ({ children }) => {
             setLoading(false)
             return
         }
-        if (location.pathname === "/Login") {
-            setLoading(false)
-            return
-        }
-
+       
         const tokenData = JSON.parse(localStorage.getItem('token'));
         const userIdData = JSON.parse(localStorage.getItem('userId'));
 
@@ -104,11 +108,11 @@ const ContextUser = ({ children }) => {
                 navigate('/Pipeline');
                 setLoading(false);
             } else {
-                navigate('/');
+                navigate('/Login');
                 setLoading(false);
             }
         } else {
-            navigate('/');
+            navigate('/Login');
             setLoading(false);
         }
 
@@ -128,7 +132,7 @@ const ContextUser = ({ children }) => {
             loginApi,
             forgetPassword,
             ChangePassword,
-            
+            userIdToken
         }}>
             {children}
         </ContextUserData.Provider>

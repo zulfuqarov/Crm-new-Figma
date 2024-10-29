@@ -1,11 +1,14 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { ContextUserData } from "./ContextUser";
 export const ContextCrm = createContext();
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const Context = ({ children }) => {
+
+  const { userIdToken } = useContext(ContextUserData)
 
   const [succesPopaps, setsuccesPopaps] = useState(false)
 
@@ -20,6 +23,7 @@ const Context = ({ children }) => {
           newStageLocal.push(stage);
         }
       });
+
       const updatedStageLocal = newStageLocal.filter(localStage =>
         response.data.some(stage => stage.id === localStage.id)
       );
@@ -175,14 +179,35 @@ const Context = ({ children }) => {
   }
 
 
+  const [userData, setuserIdData] = useState()
+  const getUserData = async () => {
+    try {
+      const response = await axios.get(`${apiUrl}/api/admin/User`)
+      const user = response.data.find((user) => user.id === userIdToken.userId.value);
+      setuserIdData(user)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
 
   useEffect(() => {
-    getStage();
-  }, [addStage, editStage, deleteStage, newLeads, changeLeadsStage]);
+    if (userIdToken.token !== null && userIdToken.userId !== null) {
+      getUserData()
+    }
+  }, [userIdToken])
 
   useEffect(() => {
-    getLeads();
-  }, [newLeads, changeLeadsStage]);
+    if (userIdToken.token !== null && userIdToken.userId !== null) {
+      getStage();
+    }
+  }, [addStage, editStage, deleteStage, newLeads, changeLeadsStage, userIdToken]);
+
+  useEffect(() => {
+    if (userIdToken.token !== null && userIdToken.userId !== null) {
+      getLeads();
+    }
+  }, [newLeads, changeLeadsStage, userIdToken]);
 
 
 
@@ -253,7 +278,8 @@ const Context = ({ children }) => {
         setnameFilter,
         succesPopaps,
         setsuccesPopaps,
-        leadColor
+        leadColor,
+        userData
       }}
     >
       {children}

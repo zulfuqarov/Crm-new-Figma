@@ -1,13 +1,27 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Logo from "../Assets/Img/Logo.svg";
 import UserLogo from "../Assets/Img/UserImg.svg";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import LogoutModal from "./LogoutModal";
+import { ContextCrm } from "../ContextCrm/ContextCrm";
 
 const Navbar = () => {
+  const { userData } = useContext(ContextCrm)
+  const navigate = useNavigate()
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    setIsModalOpen(false);
+    navigate('/')
   };
 
   return (
@@ -121,9 +135,19 @@ const Navbar = () => {
 
         <div className="flex items-center gap-4 mt-4 md:mt-0">
           <div className="flex items-center gap-3">
-            <Link className="relative w-fit [font-family:'Inter-Regular',Helvetica] font-normal text-[#222222] text-base whitespace-nowrap">
-              Sophia Peterson
-            </Link>
+
+            <div className="">
+              <LogoutModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onLogout={handleLogout}
+              />
+            </div>
+
+            <button onClick={() => setIsModalOpen(true)} className="relative w-fit [font-family:'Inter-Regular',Helvetica] font-normal text-[#222222] text-base whitespace-nowrap">
+              {userData && userData.name} {userData && userData.surname}
+
+            </button>
             <img className="h-10" src={UserLogo} alt="UserLogo" />
           </div>
         </div>
