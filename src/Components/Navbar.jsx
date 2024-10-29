@@ -21,7 +21,7 @@ const Navbar = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
     setIsModalOpen(false);
-    navigate('/')
+    navigate('/Login')
   };
 
   return (
