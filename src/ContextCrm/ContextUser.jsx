@@ -31,6 +31,7 @@ const ContextUser = ({ children }) => {
         userId: JSON.parse(localStorage.getItem("userId"))
     })
     const loginApi = async (data) => {
+        setLoading(true)
         try {
             const response = await axios.post(`${apiUrl}/api/admin/User/login`, data)
             console.log(response.data)
@@ -47,9 +48,11 @@ const ContextUser = ({ children }) => {
                 token: tokenData,
                 userId: userIdData
             })
+            setLoading(false)
         } catch (error) {
             console.log(error)
             toast.error(`${error.response.data}`)
+            setLoading(false)
         }
     }
 
@@ -97,7 +100,7 @@ const ContextUser = ({ children }) => {
             setLoading(false)
             return
         }
-       
+
         const tokenData = JSON.parse(localStorage.getItem('token'));
         const userIdData = JSON.parse(localStorage.getItem('userId'));
 

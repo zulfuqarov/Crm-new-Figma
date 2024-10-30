@@ -76,7 +76,7 @@ const RegisterLeft = () => {
                             onChange={handleChangeInput}
                             value={registerInput.name || ''}
                             type="text"
-                            className={`w-[350px] h-[44px] px-4 py-2 gap-2 rounded border border-[#D2D2D5]    focus:outline-none ${error.name ? 'border-red-500' : 'border-blue-500'}`} placeholder='Enter your name'
+                            className={`w-[350px] h-[44px] px-4 py-2 gap-2 rounded border   focus:outline-none ${registerInput.name ? error.name ? 'border-red-500' : 'border-blue-500' : 'border-[#D2D2D5]'}`} placeholder='Enter your name'
                         />
                         {
                             error.name ? <p className='text-red-500 text-[13px] pt-[7px] h-[25px]'>{error.name}</p> : ''
@@ -89,7 +89,7 @@ const RegisterLeft = () => {
                             onChange={handleChangeInput}
                             value={registerInput.companyName || ''}
                             type="text"
-                            className={`w-[350px] h-[44px] px-4 py-2 gap-2 rounded border border-[#D2D2D5]    focus:outline-none ${error.companyName ? 'border-red-500' : 'border-blue-500'}`} placeholder='Enter your company name'
+                            className={`w-[350px] h-[44px] px-4 py-2 gap-2 rounded border    focus:outline-none ${registerInput.companyName ? error.companyName ? 'border-red-500' : 'border-blue-500' : 'border-[#D2D2D5] '}`} placeholder='Enter your company name'
                         />
                         {
                             error.companyName ? <p className='text-red-500 text-[13px] pt-[7px] h-[25px]'>{error.companyName}</p> : ''
@@ -102,7 +102,7 @@ const RegisterLeft = () => {
                             onChange={handleChangeInput}
                             value={registerInput.email || ''}
                             type="email"
-                            className={`w-[350px] h-[44px] px-4 py-2 gap-2 rounded border border-[#D2D2D5]    focus:outline-none ${error.email ? 'border-red-500' : 'border-blue-500'}`} placeholder='Email'
+                            className={`w-[350px] h-[44px] px-4 py-2 gap-2 rounded border   focus:outline-none ${registerInput.email ? error.email ? 'border-red-500' : 'border-blue-500' : 'border-[#D2D2D5] '}`} placeholder='Email'
                         />
                         {
                             error.email ? <p className='text-red-500 text-[13px] pt-[7px] h-[25px]'>{error.email}</p> : ''
@@ -115,7 +115,7 @@ const RegisterLeft = () => {
                             onChange={handleChangeInput}
                             value={registerInput.phone || ''}
                             type="number"
-                            className={`w-[350px] h-[44px] px-4 py-2 gap-2 rounded border border-[#D2D2D5]    focus:outline-none ${error.phone ? 'border-red-500' : 'border-blue-500'}`} placeholder='+994'
+                            className={`w-[350px] h-[44px] px-4 py-2 gap-2 rounded border     focus:outline-none ${registerInput.phone ? error.phone ? 'border-red-500' : 'border-blue-500' : 'border-[#D2D2D5]'}`} placeholder='+994'
                         />
                         {
                             error.phone ? <p className='text-red-500 text-[13px] pt-[7px] h-[25px]'>{error.phone}</p> : ''
@@ -131,7 +131,7 @@ const RegisterLeft = () => {
                             onChange={handleChangeInput}
                             value={registerInput.surname || ''}
                             type="text"
-                            className={`w-[350px] h-[44px] px-4 py-2 gap-2 rounded border border-[#D2D2D5]    focus:outline-none ${error.surname ? 'border-red-500' : "border-blue-500"}`} placeholder='Enter your surname'
+                            className={`w-[350px] h-[44px] px-4 py-2 gap-2 rounded border     focus:outline-none ${registerInput.surname ? error.surname ? 'border-red-500' : "border-blue-500" : 'border-[#D2D2D5]'}`} placeholder='Enter your surname'
                         />
                         {
                             error.surname ? <p className='text-red-500 text-[13px] pt-[7px] h-[25px]'>{error.surname}</p> : ''
@@ -144,7 +144,7 @@ const RegisterLeft = () => {
                             onChange={handleChangeInput}
                             value={registerInput.companyDomain || ''}
                             type="text"
-                            className={`w-[350px] h-[44px] px-4 py-2 gap-2 rounded border border-[#D2D2D5]    focus:outline-none ${error.companyDomain ? 'border-red-500' : 'border-blue-500'}`} placeholder='Enter your company domain'
+                            className={`w-[350px] h-[44px] px-4 py-2 gap-2 rounded border    focus:outline-none ${registerInput.companyDomain ? error.companyDomain ? 'border-red-500' : 'border-blue-500' : 'border-[#D2D2D5] '}`} placeholder='Enter your company domain'
                         />
                         {
                             error.companyDomain ? <p className='text-red-500 text-[13px] pt-[7px] h-[25px]'>{error.companyDomain}</p> : ''
@@ -157,7 +157,7 @@ const RegisterLeft = () => {
                             onChange={handleChangeInput}
                             value={registerInput.password || ''}
                             type="password"
-                            className={`w-[350px] h-[44px] px-4 py-2 gap-2 rounded border border-[#D2D2D5]    focus:outline-none ${error.password ? "border-red-500" : "border-blue-500"}`} placeholder='Enter at least 8 characters'
+                            className={`w-[350px] h-[44px] px-4 py-2 gap-2 rounded border  focus:outline-none ${registerInput.password ? error.password ? "border-red-500" : "border-blue-500" : 'border-[#D2D2D5]'}`} placeholder='Enter at least 8 characters'
                         />
                         {
                             error.password ? <p className='text-red-500 text-[13px] pt-[7px] h-[25px]'>{error.password}</p> : ''
