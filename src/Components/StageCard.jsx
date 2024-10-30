@@ -8,7 +8,7 @@ const StageCard = ({ Stage, number }) => {
 
   const buttonRef = useRef(null)
 
-  const { handleEditStage, handleDeleteStage, newLeadsListShow } = useContext(ContextCrm);
+  const { handleEditStage, handleDeleteStage, newLeadsListShow, setnewLeadsListShow } = useContext(ContextCrm);
 
   const [ShowChangeCategroy, setShowChangeCategroy] = useState(false);
   const toggleChangeCategroy = () => {
@@ -32,6 +32,7 @@ const StageCard = ({ Stage, number }) => {
   const [showAddLeads, setshowAddLeads] = useState(false);
   const toggleAddLeads = () => {
     setshowAddLeads(!showAddLeads);
+    setnewLeadsListShow(false)
   };
 
   const [revenue, setRevenue] = useState(Stage.total_Revenue);
@@ -55,7 +56,7 @@ const StageCard = ({ Stage, number }) => {
   }, [Stage.total_Revenue]);
 
   useEffect(() => {
-    if (number === 0 && newLeadsListShow) {
+    if (number === 0 && newLeadsListShow && !showAddLeads) {
       setshowAddLeads(true)
     }
   }, [newLeadsListShow])
