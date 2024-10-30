@@ -3,7 +3,7 @@ import PersonLogo from '../Assets/Img/PersonLogo.svg'
 import GridLog from "../Assets/Img/GridLog.svg"
 import { ContextCrm } from "../ContextCrm/ContextCrm";
 const List = ({ showListLeads, toggleListAndGrid }) => {
-  const { handleFilterName } = useContext(ContextCrm)
+  const { handleFilterName, newLeadsListFunc } = useContext(ContextCrm)
   return (
     <div className="frame flex w-[100%] items-center justify-between px-10 py-10 max-[991px]:flex-col">
       <div className="div-wrapper flex w-[168px] max-[991px]:justify-center max-[991px]:w-full gap-2 items-center relative max-[991px]:pb-[30px]">
@@ -49,7 +49,9 @@ const List = ({ showListLeads, toggleListAndGrid }) => {
               Grid
             </p>
           </button>
-          <button className="div-5 inline-flex h-[44px] justify-center gap-3 px-[12px] flex-none bg-blue-600 rounded-[4px] items-center relative">
+          <button
+            onClick={newLeadsListFunc}
+            className="div-5 inline-flex h-[44px] justify-center gap-3 px-[12px] flex-none bg-blue-600 rounded-[4px] items-center relative">
             <img src={PersonLogo} alt="" />
             <p className="new-contact relative w-fit font-normal text-white text-[16px] leading-normal whitespace-nowrap">
               New Lead

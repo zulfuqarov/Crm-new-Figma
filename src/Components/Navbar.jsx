@@ -148,7 +148,11 @@ const Navbar = () => {
               {userData && userData.name} {userData && userData.surname}
 
             </button>
-            <img className="h-10" src={UserLogo} alt="UserLogo" />
+            <div onClick={() => setIsModalOpen(true)} className="flex cursor-pointer items-center justify-center w-[40px] h-[40px] bg-[#77919D] text-white rounded-full">
+              <p className="text-center text-[18px] font-bold">
+                {userData && userData.name[0]} {userData && userData.surname[0]}
+              </p>
+            </div>
           </div>
         </div>
       </div>

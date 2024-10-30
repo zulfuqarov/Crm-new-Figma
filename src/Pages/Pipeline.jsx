@@ -110,7 +110,7 @@ const Pipeline = () => {
                             ...provided.draggableProps.style,
                           }}
                         >
-                          <StageCard Stage={Onestage} />
+                          <StageCard Stage={Onestage} number={index} />
                           <Droppable droppableId={Onestage.id} type="Leads">
                             {(provided, snapshot) => (
                               <div

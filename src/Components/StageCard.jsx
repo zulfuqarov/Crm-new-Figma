@@ -4,11 +4,11 @@ import { ContextCrm } from "../ContextCrm/ContextCrm";
 import AddLeads from "./AddLeads";
 import { toast } from "react-toastify";
 
-const StageCard = ({ Stage }) => {
+const StageCard = ({ Stage, number }) => {
 
   const buttonRef = useRef(null)
 
-  const { handleEditStage, handleDeleteStage } = useContext(ContextCrm);
+  const { handleEditStage, handleDeleteStage, newLeadsListShow } = useContext(ContextCrm);
 
   const [ShowChangeCategroy, setShowChangeCategroy] = useState(false);
   const toggleChangeCategroy = () => {
@@ -53,6 +53,12 @@ const StageCard = ({ Stage }) => {
       setColorClass("bg-blue-500");
     }
   }, [Stage.total_Revenue]);
+
+  useEffect(() => {
+    if (number === 0 && newLeadsListShow) {
+      setshowAddLeads(true)
+    }
+  }, [newLeadsListShow])
 
   return (
     <div className="flex flex-col w-[100%]  items-start gap-4 py-4 relative group">

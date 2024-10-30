@@ -211,8 +211,6 @@ const Context = ({ children }) => {
 
 
 
-
-
   const [leadColor, setLeadColor] = useState({});
   const buttonColors = [
     "bg-[#FFA61A]",
@@ -226,34 +224,33 @@ const Context = ({ children }) => {
 
   useEffect(() => {
     const savedLeadColors = localStorage.getItem("leadColors");
+    const leadsProductNameColor = savedLeadColors ? JSON.parse(savedLeadColors) : { ...leadColor }; // Mevcut renkleri koru
 
-    if (savedLeadColors) {
-      setLeadColor(JSON.parse(savedLeadColors));
-    } else if (leads.length > 0) {
-      const leadsProductNameColor = {};
+    leads.forEach((lead) => {
+      const productName = lead.product.name;
 
-      leads.forEach((lead) => {
-        const productName = lead.product.name;
+      if (!leadsProductNameColor[productName]) {
+        const usedColors = Object.values(leadsProductNameColor);
+        const availableColors = buttonColors.filter(
+          (color) => !usedColors.includes(color)
+        );
 
-        if (!leadsProductNameColor[productName]) {
-          const usedColors = Object.values(leadsProductNameColor);
-          const availableColors = buttonColors.filter(
-            (color) => !usedColors.includes(color)
-          );
-
-          if (availableColors.length > 0) {
-            leadsProductNameColor[productName] = availableColors[
-              Math.floor(Math.random() * availableColors.length)
-            ];
-          }
+        if (availableColors.length > 0) {
+          leadsProductNameColor[productName] = availableColors[
+            Math.floor(Math.random() * availableColors.length)
+          ];
         }
-      });
+      }
+    });
 
-      setLeadColor(leadsProductNameColor);
-
-      localStorage.setItem("leadColors", JSON.stringify(leadsProductNameColor));
-    }
+    setLeadColor(leadsProductNameColor);
+    localStorage.setItem("leadColors", JSON.stringify(leadsProductNameColor));
   }, [leads]);
+
+  const [newLeadsListShow, setnewLeadsListShow] = useState(false)
+  const newLeadsListFunc = () => {
+    setnewLeadsListShow(!newLeadsListShow)
+  }
 
   return (
     <ContextCrm.Provider
@@ -279,7 +276,10 @@ const Context = ({ children }) => {
         succesPopaps,
         setsuccesPopaps,
         leadColor,
-        userData
+        userData,
+        newLeadsListFunc,
+        setnewLeadsListShow,
+        newLeadsListShow
       }}
     >
       {children}

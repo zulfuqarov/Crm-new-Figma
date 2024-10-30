@@ -16,11 +16,16 @@ const AddLeads = ({ StageId, setshowAddLeads, showAddLeads, buttonRef }) => {
   const [showContact, setshowContact] = useState(false);
   const [showProduct, setshowProduct] = useState(false);
 
-  const [newLeads, setnewLeads] = useState({});
+  const [newLeads, setnewLeads] = useState({
+    probability: "50"
+  });
   const [contact, setContact] = useState({});
   const [product, setProduct] = useState({});
 
   const onChangeNewLeads = (e) => {
+    if (e.target.name === 'expectedRevenue' && e.target.value < 0) {
+      return
+    }
     setnewLeads({ ...newLeads, [e.target.name]: e.target.value });
   };
 
@@ -50,6 +55,24 @@ const AddLeads = ({ StageId, setshowAddLeads, showAddLeads, buttonRef }) => {
     setshowProduct(false);
   };
 
+  const [error, seterror] = useState({})
+  const leadsValidations = () => {
+    const validation = {}
+    if (!Object.keys(contact).length) {
+      validation.contact = "Please select a contact"
+    }
+    if (!Object.keys(product).length) {
+      validation.product = "Please select a product"
+    }
+    if (!newLeads.expectedRevenue) {
+      validation.expectedRevenue = "Expected Revenue should be a positive number"
+    }
+    if (!newLeads.expectedClosingDate) {
+      validation.expectedClosingDate = "Expected Closing Date should be a positive number"
+    }
+    return validation
+  }
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (ref.current && !ref.current.contains(event.target) && buttonRef.current &&
@@ -78,13 +101,15 @@ const AddLeads = ({ StageId, setshowAddLeads, showAddLeads, buttonRef }) => {
             Contact
           </p>
           <input
-            className="w-full h-[36px] border-none rounded p-2 text-sm focus:outline-none focus:ring-0 transition"
+            className={`w-full h-[36px] border rounded p-2 text-sm focus:outline-none focus:ring-0 transition
+              ${contact.name ? '' : error.contact ? 'border-red-500 border' : ''}
+              `}
             type="text"
             placeholder="Enter contact"
             onChange={onChangeNewLeadsContact}
             value={contact.name || ""}
           />
-
+          <p className="text-[12px] text-red-500">{contact.name ? '' : error.contact ? error.contact : ''}</p>
           {showContact ? (
             searchLeadsContact.length > 0 ? (
               <ul className="w-full max-h-[300px] overflow-y-auto mt-2 bg-white border border-gray-300 rounded-md shadow-md">
@@ -114,12 +139,16 @@ const AddLeads = ({ StageId, setshowAddLeads, showAddLeads, buttonRef }) => {
             Product
           </p>
           <input
-            className="w-full h-[36px] border-none rounded p-2 text-sm focus:outline-none focus:ring-0 transition"
+            className={`w-full h-[36px] border rounded p-2 text-sm focus:outline-none focus:ring-0 transition
+              ${product.name ? '' : error.product ? 'border-red-500 border' : ''}
+              `}
             type="text"
             placeholder="e.g. Product"
             onChange={onChangeNewLeadsProduct}
             value={product.name || ""}
           />
+          <p className="text-[12px] text-red-500">{product.name ? '' : error.product ? error.product : ''}</p>
+
           {showProduct ? (
             searchLeadsProduct.length > 0 ? (
               <ul className="w-full max-h-[300px] overflow-y-auto mt-2 bg-white border border-gray-300 rounded-md shadow-md">
@@ -150,7 +179,9 @@ const AddLeads = ({ StageId, setshowAddLeads, showAddLeads, buttonRef }) => {
           </p>
           <div className="flex items-center w-full">
             <input
-              className="w-full h-[36px] border-none rounded p-2 text-sm focus:outline-none focus:ring-0 transition"
+              className={`w-full h-[36px] border rounded p-2 text-sm focus:outline-none focus:ring-0 transition
+  ${newLeads.expectedRevenue ? '' : error.expectedRevenue ? 'border-red-500 border' : ''}
+  `}
               type="number"
               placeholder="$0.00"
               name="expectedRevenue"
@@ -158,6 +189,7 @@ const AddLeads = ({ StageId, setshowAddLeads, showAddLeads, buttonRef }) => {
               value={newLeads.expectedRevenue || ""}
             />
           </div>
+          <p className="text-[12px] text-red-500">{newLeads.expectedRevenue ? '' : error.expectedRevenue ? error.expectedRevenue : ''}</p>
         </div>
         <div className="flex flex-col w-[100%] items-start justify-center gap-3">
           <p className="w-full text-[16px]  font-medium text-main-text-color">
@@ -185,17 +217,22 @@ const AddLeads = ({ StageId, setshowAddLeads, showAddLeads, buttonRef }) => {
             Expected Closing Date
           </p>
           <input
-            className="w-full h-[36px] border border-gray-300 rounded p-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300 transition"
-            type="date" 
+            className={`w-full h-[36px] border border-gray-300 rounded p-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300 transition
+              ${newLeads.expectedClosingDate ? '' : error.expectedClosingDate ? 'border-red-500' : ''}
+              `}
+            type="date"
             placeholder="e.g. (mm/dd/yyyy)"
             name="expectedClosingDate"
             onChange={onChangeNewLeads}
             value={newLeads.expectedClosingDate || ""}
           />
+          <p className="text-[12px] text-red-500">{newLeads.expectedClosingDate ? '' : error.expectedClosingDate ? error.expectedClosingDate : ''}</p>
         </div>
       </div>
       <div className="flex items-center justify-between w-full">
-        <button className="flex h-[44px] items-center justify-center gap-3 px-3 bg-gray-200 border border-gray-300 rounded cursor-pointer hover:bg-gray-300 transition">
+        <button
+          onClick={() => setshowAddLeads(false)}
+          className="flex h-[44px] items-center justify-center gap-3 px-3 bg-gray-200 border border-gray-300 rounded cursor-pointer hover:bg-gray-300 transition">
           <p className="font-normal text-main-text-color text-sm">Discard</p>
         </button>
         <button
@@ -213,13 +250,16 @@ const AddLeads = ({ StageId, setshowAddLeads, showAddLeads, buttonRef }) => {
                 customerId: contact.id,
                 productId: product.id,
               };
-
+              console.log(newLeads)
               handleAddLeads(updatedLeads, StageId, JSON.parse(localStorage.getItem('userId')).value);
               setnewLeads({});
               setContact({ id: "", name: "" });
               setProduct({ id: "", name: "" });
+              setshowAddLeads(false)
             } else {
               toast.error("Please fill all the fields!");
+              seterror(leadsValidations())
+              console.log(error)
               return;
             }
           }}
