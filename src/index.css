@@ -31,3 +31,15 @@ body {
     animation: fall 1s ease-out forwards;
     /* 1 saniye sürecek animasyon */
 }
+
+.writing-mode-vertical {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    height: 100px;
+    text-align: end;
+}
+
+.clip-pentagon {
+    clip-path: polygon(50% 0%, 100% 38%, 81% 100%, 19% 100%, 0% 38%);
+}
+

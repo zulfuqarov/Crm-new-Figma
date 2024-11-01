@@ -43,7 +43,7 @@ const ContextUser = ({ children }) => {
 
             localStorage.setItem('token', JSON.stringify(tokenData));
             localStorage.setItem('userId', JSON.stringify(userIdData))
-            navigate('/Pipeline')
+            navigate('/Dashboard')
             setuserIdToken({
                 token: tokenData,
                 userId: userIdData
@@ -108,7 +108,7 @@ const ContextUser = ({ children }) => {
 
         if (tokenData && tokenData.value && userIdData && userIdData.value) {
             if (now < tokenData.expiresAt && now < userIdData.expiresAt) {
-                navigate('/Pipeline');
+                navigate('/Dashboard');
                 setLoading(false);
             } else {
                 navigate('/Login');

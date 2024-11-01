@@ -13,6 +13,7 @@ import ForgetPassword from "./Pages/ForgetPassword";
 import ChangePassword from "./Pages/ChangePassword";
 import Register from "./Pages/Register";
 import ContextUser from "./ContextCrm/ContextUser";
+import DashBoard from "./Pages/DashBoard";
 
 function App() {
   const location = useLocation();
@@ -32,6 +33,7 @@ function App() {
           <Routes>
             <Route path="/Login" element={<Welcome />} />
             {/* <Route path="/Login" element={<Login />} /> */}
+            <Route path="/Dashboard" element={<DashBoard />} />
             <Route path="/Register" element={< Register />} />
             <Route path="/Forget-Password" element={<ForgetPassword />} />
             <Route path="/Change-Password" element={<ChangePassword />} />
