@@ -12,7 +12,7 @@ const Topproducts = ({ topProduct }) => {
 
 
     return (
-        <div className='w-[450px] h-[600px] p-7 flex flex-col justify-center bg-white  items-center'>
+        <div className='w-[450px] h-[600px] p-7 flex flex-col justify-center bg-white  items-center mt-[25px]'>
 
             <p className='font-bold text-left w-full text-[24px] '>Top products</p>
 

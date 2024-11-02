@@ -3,7 +3,9 @@ import * as d3 from "d3";
 
 const Statuscount = ({ dataset }) => {
 
-    const color = d3.scaleOrdinal().range(["#FFA61A", "#2B8547", "#AF59F7", "#6A8BF7", "#1971F6"]);
+    const color = d3.scaleOrdinal()
+        .domain(["Lost", "New", "Qualified", "Proposition", "Won"]) // İsimler
+        .range(["#FFA61A", "#2B8547", "#AF59F7", "#6A8BF7", "#1971F6"]); // Renkler
 
 
     useEffect(() => {
