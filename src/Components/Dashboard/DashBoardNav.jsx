@@ -8,7 +8,7 @@ const DashBoardNav = () => {
 
     return (
         <div className='px-[70px] py-[40px]'>
-            <p className='text-[32px] text-[#031225] font-medium'>Welcome back, {userData.name}!</p>
+            <p className='text-[32px] text-[#031225] font-medium'>Welcome back, {userData && userData.name}!</p>
             <span className='text-[20px] text-[#7C838B]'>27 October, 2024</span>
         </div>
     )

@@ -5,6 +5,7 @@ import Statuscount from '../Components/Dashboard/Statuscount';
 import ProbabltySvg from '../Assets/Img/PropobaltySvg.svg'
 import Cards from '../Components/Dashboard/Cards';
 import DashBoardNav from '../Components/Dashboard/DashBoardNav';
+import TopDearles from '../Components/Dashboard/TopDearles';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -56,26 +57,48 @@ const DashBoard = () => {
         }
     }
 
+    //WonStageDealers
+    const [WonStageDealers, setWonStageDealers] = useState([])
+    const getWonStageDealers = async () => {
+        try {
+            const response = await axios.get(`${apiUrl}/api/Dashboard/WonStageDealers`)
+            setWonStageDealers(response.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
     useEffect(() => {
         getTopProduct()
         getStatus()
         getProbablity()
         getInformationWonLost()
+        getWonStageDealers()
         return () => {
             settopProduct()
+            setdataset()
+            setProbablity()
+            setInformationWonLost()
+            setWonStageDealers()
         };
 
     }, [])
     return (
-        <div>
+        <div className='pb-[60px]'>
 
             <DashBoardNav />
 
             <Cards Probablity={Probablity} InformationWonLost={InformationWonLost} />
 
+
+
             <div className='flex justify-evenly items-center'>
                 <Topproducts topProduct={topProduct} />
                 <Statuscount dataset={dataset} />
+            </div>
+            <div className='flex  justify-center items-center'>
+                <TopDearles WonStageDealers={WonStageDealers} />
             </div>
         </div>
     )
