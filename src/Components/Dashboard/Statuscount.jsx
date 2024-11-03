@@ -113,7 +113,7 @@ const Statuscount = ({ dataset }) => {
                     <div id="chart" className="chart-container"></div>
                 </div>
                 <div className="w-[350px] ">
-                    <div class="space-y-2">
+                    <div className="space-y-2">
                         {
                             dataset &&
                             dataset.map((oneMap, index) => (
